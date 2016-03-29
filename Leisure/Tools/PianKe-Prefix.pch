@@ -1,0 +1,16 @@
+//
+//  PianKe-Prefix.pch
+//  Leisure
+//
+//  Created by zero on 16/3/29.
+//  Copyright © 2016年 zero. All rights reserved.
+//
+
+#ifndef PianKe_Prefix_pch
+#define PianKe_Prefix_pch
+
+#import "URLHeaderDefine.h"
+#import "ConstantsDefine.h"
+#import "NetWorkRequestManager.h"
+
+#endif /* PianKe_Prefix_pch */

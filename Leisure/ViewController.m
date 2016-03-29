@@ -1,0 +1,164 @@
+//
+//  ViewController.m
+//  Drawer
+//
+//  Created by zero on 16/3/28.
+//  Copyright © 2016年 zero. All rights reserved.
+//
+
+#import "ViewController.h"
+#import "BaseViewController.h"
+#import "ReadViewController.h"
+#import "RadioViewController.h"
+#import "TopicViewController.h"
+#import "ProductViewController.h"
+
+#define kLeftWidth [UIScreen mainScreen].bounds.size.width * 2 / 3
+
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
+
+@property (nonatomic, strong) UINavigationController *naVC;
+@property (weak, nonatomic) IBOutlet UITableView *leftTableView;
+@property (strong, nonatomic) NSMutableArray *rootViewNameArr;
+@property (strong, nonatomic) UIView *rootView;
+@property (nonatomic, assign) BOOL showLeft;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+
+@end
+
+@implementation ViewController
+
+- (NSMutableArray *)rootViewNameArr
+{
+    if (_rootViewNameArr == nil) {
+        _rootViewNameArr = [[NSMutableArray alloc] init];
+        [_rootViewNameArr addObject:@"阅读"];
+        [_rootViewNameArr addObject:@"电台"];
+        [_rootViewNameArr addObject:@"话题"];
+        [_rootViewNameArr addObject:@"良品"];
+    }
+    return _rootViewNameArr;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    _showLeft = NO;
+    self.leftTableView.delegate = self;
+    self.leftTableView.dataSource = self;
+    
+    [self createViewController:0];
+    
+    self.tap = [[UITapGestureRecognizer alloc ]initWithTarget:self action:@selector(pushLeft)];
+    [self.view addGestureRecognizer:self.tap];
+    _tap.enabled = NO;
+    self.tap.delegate = self;
+}
+
+// 根据传入的数值创建视图控制器
+- (void)createViewController:(NSInteger)index
+{
+    BaseViewController *baseVC = nil;
+    
+    if (index == 0) {
+        baseVC = [[ReadViewController alloc] init];
+    } else if (index == 1) {
+        baseVC = [[RadioViewController alloc] init];
+    } else if (index == 2) {
+        baseVC = [[TopicViewController alloc] init];
+    } else if (index == 3) {
+        baseVC = [[ProductViewController alloc] init];
+    }
+    
+    self.naVC = [[UINavigationController alloc] initWithRootViewController:baseVC];
+    baseVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"三" style:UIBarButtonItemStyleDone target:self action:@selector(pushLeft)];
+    baseVC.navigationItem.title = self.rootViewNameArr[index];
+    [self.view addSubview:self.naVC.view];
+//    self.rootView = baseVC.view;
+    //[self createNvButtonAndAddToView:self.naVC.view];
+    //[self addChildViewController:baseVC];
+}
+
+// 创建导航按钮并且添加到视图上
+//- (void)createNvButtonAndAddToView:(UIView *)view
+//{
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    button.frame = CGRectMake(0, 20, 60, 30);
+//    [button setTitle:@"三" forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(pushLeft) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:button];
+//}
+
+// 推出左视图
+- (void)pushLeft
+{
+    if (_showLeft) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self changeXTo:0];
+        } completion:^(BOOL finished) {
+            _showLeft = NO;
+        }];
+    } else {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self changeXTo:kLeftWidth];
+        } completion:^(BOOL finished) {
+            _showLeft = YES;
+        }];
+    }
+}
+
+// 改变x轴坐标
+- (void)changeXTo:(NSInteger)x
+{
+    if (x) {
+        _tap.enabled = YES;
+    } else {
+        _tap.enabled = NO;
+    }
+    
+    CGRect frame = self.naVC.view.frame;
+    frame.origin.x = x;
+    self.naVC.view.frame = frame;
+}
+
+#pragma mark - UIGestureRecognizer Delegate -
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return CGRectContainsPoint(self.rootView.frame, [gestureRecognizer locationInView:self.view]);
+}
+
+#pragma mark - Table View Delegate -
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.naVC.view removeFromSuperview];
+    self.naVC = nil;
+    [self createViewController:indexPath.row];
+    
+    [self changeXTo:kLeftWidth];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self changeXTo:0];
+    } completion:^(BOOL finished) {
+        _showLeft = NO;
+    }];
+}
+
+#pragma mark - Table View sourceData -
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.rootViewNameArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.leftTableView dequeueReusableCellWithIdentifier:@"reuse"];
+    
+    cell.textLabel.text = self.rootViewNameArr[indexPath.row];
+    
+    return cell;
+}
+
+@end
