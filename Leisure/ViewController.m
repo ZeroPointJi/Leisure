@@ -126,7 +126,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    return CGRectContainsPoint(self.rootView.frame, [gestureRecognizer locationInView:self.view]);
+    return CGRectContainsPoint(self.naVC.view.frame, [gestureRecognizer locationInView:self.view]);
 }
 
 #pragma mark - Table View Delegate -
