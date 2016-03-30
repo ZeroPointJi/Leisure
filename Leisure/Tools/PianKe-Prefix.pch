@@ -11,6 +11,6 @@
 
 #import "URLHeaderDefine.h"
 #import "ConstantsDefine.h"
-#import "NetWorkRequestManager.h"
+#import "NetWorkrequestManage.h"
 
 #endif /* PianKe_Prefix_pch */
