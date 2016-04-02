@@ -11,7 +11,7 @@
 @interface TopicCounterListModel : BaseModel
 
 @property (nonatomic, copy) NSString *comment;  // 评论次数
-@property (nonatomic, copy) NSString *like; //喜欢次数
+@property (nonatomic, copy) NSNumber *like; //喜欢次数
 @property (nonatomic, copy) NSString *view; // 查看次数
 
 @end

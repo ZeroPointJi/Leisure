@@ -10,6 +10,11 @@
 
 @implementation BaseCollectionViewCell
 
+- (void)setDataWithModel:(BaseModel *)model
+{
+    
+}
+
 - (void)awakeFromNib {
     // Initialization code
 }

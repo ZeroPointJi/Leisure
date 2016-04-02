@@ -9,11 +9,14 @@
 #import "ReadViewController.h"
 #import "ReadCarouselModel.h"
 #import "ReadListModel.h"
-
+#import "ReadListModelCell.h"
 #import "ReadDetailViewController.h"
+#import "FactoryCollectionViewCell.h"
+#import "CycleScrollView.h"
 
-@interface ReadViewController ()
+@interface ReadViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *carouselArray; // 轮播图的数据源
 @property (nonatomic, strong) NSMutableArray *listArray; // 列表数据源
 
@@ -39,7 +42,7 @@
 -(void)requestData {
     [NetWorkrequestManage requestWithType:POST url:READHOMELIST_URL parameters:nil finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"dataDic = %@", dataDic);
+        //NSLog(@"dataDic = %@", dataDic);
         
         // 获取轮播图数据
         NSArray *carouselArr = [[dataDic objectForKey:@"data"] objectForKey:@"carousel"];
@@ -63,15 +66,9 @@
         
         // 回到主线程刷新ui
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            // 测试跳转到详情列表
-//            ReadDetailViewController *detailVC = [[ReadDetailViewController alloc] init];
-//            
-//            ReadListModel *model = self.listArray[0];
-//            detailVC.typeID = model.type;
-//            
-//            [self.navigationController pushViewController:detailVC animated:YES];
-            
+            [self createCycleScrollView];
+            // 刷新 collectionView
+            [self createCollectionView];
         });
         
     } error:^(NSError *error) {
@@ -83,25 +80,80 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor yellowColor];
+    
     // 请求数据
     [self requestData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)createCycleScrollView
+{
+    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth,ScreenHeight - ScreenWidth - 64) animationDuration:5];
+    cycle.totalPagesCount = self.carouselArray.count;
+    cycle.fetchContentViewAtIndex = ^(NSInteger page) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - ScreenWidth - 64)];
+        ReadCarouselModel *model = self.carouselArray[page];
+        NSURL *url = [NSURL URLWithString:model.img];
+        [imageView sd_setImageWithURL:url];
+        
+        return imageView;
+    };
+    [self.view addSubview:cycle];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)createCollectionView
+{
+    //创建flowlayout
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //设置行之间的最小间隔
+    layout.minimumLineSpacing = 2;
+    //设置列之间的最小间隔
+    layout.minimumInteritemSpacing = 2;
+    //设置item（cell）的大小
+    layout.itemSize = CGSizeMake(ScreenWidth / 3 - 10 ,ScreenWidth / 3 - 10 );
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    
+    //设置分区上下左右的边距
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    
+    //创建collectionview对象，设置代理，设置数据源
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, ScreenHeight - ScreenWidth - 64, ScreenWidth, ScreenWidth) collectionViewLayout:layout];
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    
+    [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ReadListModelCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([ReadListModel class])];
+    
+    [self.view addSubview:_collectionView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.translucent = NO;
 }
-*/
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.listArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    BaseModel *model = self.listArray[indexPath.row];
+    BaseCollectionViewCell *cell = [FactoryCollectionViewCell createCollectionViewCell:_listArray[indexPath.row] andCollectionView:collectionView andIndexPath:indexPath];
+    
+    [cell setDataWithModel:model];
+    return cell;
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 测试跳转到详情列表
+    ReadDetailViewController *detailVC = [[ReadDetailViewController alloc] init];
+   
+    ReadListModel *model = self.listArray[indexPath.row];
+    detailVC.typeID = model.type;
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
 
 @end

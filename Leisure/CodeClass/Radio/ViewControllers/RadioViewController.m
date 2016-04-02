@@ -8,14 +8,20 @@
 
 #import "RadioViewController.h"
 #import "RadioListModel.h"
+#import "RadioListModelCell.h"
 #import "RadioCarouselModel.h"
+#import "CycleScrollView.h"
+#import <MJRefresh.h>
 
 #import "RadioDetailViewController.h"
 
-@interface RadioViewController ()
+#define kLIMIT 10
+
+@interface RadioViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger start;
-@property (nonatomic, assign) NSInteger limit;
 
 @property (nonatomic, strong) NSMutableArray *allListArray; // 所有电台列表数据源
 @property (nonatomic, strong) NSMutableArray *carouselArray; // 轮播图数据源
@@ -47,9 +53,9 @@
 
 // 上拉刷新请求
 - (void)requestRefreshData {
-    [NetWorkrequestManage requestWithType:POST url:RADIOLISTMORE_URL parameters:@{@"start" : @(_start), @"limit" : @(_limit)} finish:^(NSData *data) {
+    _start += kLIMIT;
+    [NetWorkrequestManage requestWithType:POST url:RADIOLISTMORE_URL parameters:@{@"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-//        NSLog(@"dataDic = %@", dataDic);
         
         // 获取所有电台列表数据
         NSArray *allListArr = dataDic[@"data"][@"list"];
@@ -66,12 +72,12 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            RadioDetailViewController *detailVC = [[RadioDetailViewController alloc] init];
-            RadioListModel *model = self.allListArray[0];
-            detailVC.radioID = model.radioid;
-            [self.navigationController pushViewController:detailVC animated:YES];
-            
+            [self.tableView reloadData];
+            if (allListArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
         });
         
     } error:^(NSError *error) {
@@ -81,9 +87,10 @@
 
 // 首次请求
 - (void)requestFirstData {
+    [self.allListArray removeAllObjects];
     [NetWorkrequestManage requestWithType:POST url:RADIOLIST_URL parameters:@{} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        NSLog(@"dataDic = %@", dataDic);
+        //NSLog(@"dataDic = %@", dataDic);
         
         // 获取所有电台列表数据
         NSArray *allListArr = dataDic[@"data"][@"alllist"];
@@ -124,7 +131,8 @@
         
         // 回到主线程操作ui
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [self createCycleScorllView];
+            [self createTableView];
         });
         
         
@@ -136,25 +144,81 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
-//    [self requestFirstData];
-    [self requestRefreshData];
+    [self requestFirstData];
+    
+    //[self requestRefreshData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)createCycleScorllView
+{
+    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180) animationDuration:5];
+    cycle.totalPagesCount = self.carouselArray.count;
+    cycle.fetchContentViewAtIndex = ^(NSInteger page){
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
+        RadioCarouselModel *model = self.carouselArray[page];
+        NSURL *url = [NSURL URLWithString:model.img];
+        [imageView sd_setImageWithURL:url];
+        
+        return imageView;
+    };
+    [self.view addSubview:cycle];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)createTableView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, ScreenHeight - 244) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RadioListModelCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioListModel class])];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshData)];
+    self.navigationController.navigationBar.translucent = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self.view addSubview:_tableView];
 }
-*/
+
+#pragma mark - Table View Delegate & DataSource -
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    NSArray *viewArr = [[NSBundle mainBundle] loadNibNamed:@"RadioAllListHeaderView" owner:nil options:nil];
+    UIView *view = [viewArr lastObject];
+    return view;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.allListArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BaseModel *model = self.allListArray[indexPath.row];
+    BaseTableViewCell *cell = [FactoryTableViewCell createTableViewCell:model withTableView:tableView andIndexPath:indexPath];
+    
+    [cell setData:model];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RadioDetailViewController *radioDetailVC = [[RadioDetailViewController alloc] init];
+    radioDetailVC.radioModel = self.allListArray[indexPath.row];
+    [self.navigationController pushViewController:radioDetailVC animated:YES];
+}
 
 @end

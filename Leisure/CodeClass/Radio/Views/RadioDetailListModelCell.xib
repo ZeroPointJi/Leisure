@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="176" id="7P7-JF-PaI" customClass="RadioDetailListModelCell">
+            <rect key="frame" x="0.0" y="0.0" width="462" height="176"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7P7-JF-PaI" id="4w0-DP-U4j">
+                <rect key="frame" x="0.0" y="0.0" width="462" height="175"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u6T-XN-XOA">
+                        <rect key="frame" x="20" y="12" width="151" height="151"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="u6T-XN-XOA" secondAttribute="height" multiplier="1:1" id="P1l-20-SvP"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lC-6I-Yju">
+                        <rect key="frame" x="201" y="17" width="150" height="68"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="M0M-b6-7mT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSI-83-onV">
+                        <rect key="frame" x="201" y="90" width="150" height="68"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQU-Y5-kmz">
+                        <rect key="frame" x="410" y="70" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="PWl-Py-RCw"/>
+                            <constraint firstAttribute="width" constant="35" id="Qdr-dP-jwf"/>
+                        </constraints>
+                        <state key="normal" image="u68"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="u6T-XN-XOA" firstAttribute="leading" secondItem="4w0-DP-U4j" secondAttribute="leading" constant="20" id="9MC-ve-rwm"/>
+                    <constraint firstItem="5lC-6I-Yju" firstAttribute="height" secondItem="u6T-XN-XOA" secondAttribute="height" multiplier="0.45" id="9gA-1H-Q4u"/>
+                    <constraint firstAttribute="bottom" secondItem="u6T-XN-XOA" secondAttribute="bottom" constant="12" id="BDU-DJ-Daz"/>
+                    <constraint firstItem="OSI-83-onV" firstAttribute="width" secondItem="5lC-6I-Yju" secondAttribute="width" id="C6g-kD-sjK"/>
+                    <constraint firstItem="DQU-Y5-kmz" firstAttribute="centerY" secondItem="4w0-DP-U4j" secondAttribute="centerY" id="EaL-hh-teg"/>
+                    <constraint firstItem="OSI-83-onV" firstAttribute="height" secondItem="5lC-6I-Yju" secondAttribute="height" id="Fyd-s6-VVH"/>
+                    <constraint firstItem="OSI-83-onV" firstAttribute="leading" secondItem="5lC-6I-Yju" secondAttribute="leading" id="Jy3-ky-bB0"/>
+                    <constraint firstAttribute="trailing" secondItem="DQU-Y5-kmz" secondAttribute="trailing" constant="17" id="ShG-Dc-eEP"/>
+                    <constraint firstItem="OSI-83-onV" firstAttribute="leading" secondItem="DQU-Y5-kmz" secondAttribute="trailing" constant="20" id="Uev-NR-aoE"/>
+                    <constraint firstItem="OSI-83-onV" firstAttribute="top" secondItem="5lC-6I-Yju" secondAttribute="bottom" constant="5" id="bp2-gv-vL7"/>
+                    <constraint firstItem="5lC-6I-Yju" firstAttribute="top" secondItem="u6T-XN-XOA" secondAttribute="top" constant="5" id="cy9-vM-Zfa"/>
+                    <constraint firstItem="5lC-6I-Yju" firstAttribute="leading" secondItem="u6T-XN-XOA" secondAttribute="trailing" constant="30" id="dTj-qa-cEI"/>
+                    <constraint firstItem="u6T-XN-XOA" firstAttribute="top" secondItem="4w0-DP-U4j" secondAttribute="top" constant="12" id="oqS-Yi-n3q"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Uev-NR-aoE"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="coverImageView" destination="u6T-XN-XOA" id="XGP-vD-139"/>
+                <outlet property="musicVisitLabel" destination="OSI-83-onV" id="IjY-6M-cU0"/>
+                <outlet property="playButton" destination="DQU-Y5-kmz" id="iL2-rD-imu"/>
+                <outlet property="titleLabel" destination="5lC-6I-Yju" id="vBk-uP-Cjx"/>
+            </connections>
+            <point key="canvasLocation" x="685" y="488"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="u68" width="35" height="35"/>
+    </resources>
+</document>

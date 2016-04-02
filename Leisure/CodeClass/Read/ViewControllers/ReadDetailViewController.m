@@ -8,8 +8,12 @@
 
 #import "ReadDetailViewController.h"
 #import "ReadDetailListModel.h"
+#import "ReadDetailListModelCell.h"
 
-@interface ReadDetailViewController ()
+@interface ReadDetailViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) NSInteger requestSort; // 请求数据的类型 0 最新 1 热门
 
 @property (nonatomic, assign) NSInteger start; // 请求开始的位置
 @property (nonatomic, assign) NSInteger limit; // 每次请求的数据条数
@@ -39,7 +43,7 @@
     [NetWorkrequestManage requestWithType:POST url:READDETAILLIST_URL parameters:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(_limit), @"sort" : sort} finish:^(NSData *data) {
         
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        NSLog(@"dataDic = %@", dataDic);
+        //NSLog(@"dataDic = %@", dataDic);
         
         // 获取详情列表的数据源
         NSArray *listArr = dataDic[@"data"][@"list"];
@@ -59,7 +63,7 @@
         
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [self.tableView reloadData];
         });
         
     } error:^(NSError *error) {
@@ -69,24 +73,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
+    [self createTableView];
+    
+    [self createNaButton];
+    
+    _requestSort = 0;
     [self requestDataWithSort:@"addtime"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)createNaButton
+{
+    UIBarButtonItem *addtimeItem = [[UIBarButtonItem alloc] initWithTitle:@"最新" style:UIBarButtonItemStyleDone target:self action:@selector(addtime)];
+    UIBarButtonItem *hotItem = [[UIBarButtonItem alloc] initWithTitle:@"热门" style:UIBarButtonItemStyleDone target:self action:@selector(hot)];
+    self.navigationItem.rightBarButtonItems = @[hotItem, addtimeItem];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)addtime
+{
+    _requestSort = 0;
+    if (self.addtimeListArray.count == 0) {
+        [self requestDataWithSort:@"addtime"];
+    } else {
+        [self.tableView reloadData];
+    }
 }
-*/
+
+- (void)hot
+{
+    _requestSort = 1;
+    [self.tableView reloadData];
+    if (self.hotListArray.count == 0) {
+        [self requestDataWithSort:@"hot"];
+    } else {
+        [self.tableView reloadData];
+    }
+}
+
+- (void)createTableView
+{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.navigationBar.translucent = NO;
+    
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ReadDetailListModelCell class]) bundle:nil]  forCellReuseIdentifier:NSStringFromClass([ReadDetailListModel class])];
+    
+    [self.view addSubview:_tableView];
+}
+
+#pragma mark - Table View Delegate & DataSource -
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _requestSort ==  0 ? self.addtimeListArray.count : self.hotListArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 200;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BaseModel *model =  nil;
+    model = _requestSort == 0 ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
+    BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([model class]) forIndexPath:indexPath];
+    [cell setData:model];
+    
+    return cell;
+}
 
 @end

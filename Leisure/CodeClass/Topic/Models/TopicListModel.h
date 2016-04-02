@@ -19,6 +19,8 @@
 @property (nonatomic, copy) NSString *coverimg; // 图片地址
 @property (nonatomic, copy) NSString *title; // 标题
 
+@property (nonatomic, assign) BOOL ishot;
+
 @property (nonatomic, strong) TopicCounterListModel *counter; // 计数对象
 @property (nonatomic, strong) TopicUserInfoModel *userInfo; // 用户信息
 

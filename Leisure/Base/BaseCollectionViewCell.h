@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseModel.h"
 
 @interface BaseCollectionViewCell : UICollectionViewCell
+
+- (void)setDataWithModel:(BaseModel *)model;
 
 @end

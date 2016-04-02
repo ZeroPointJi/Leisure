@@ -12,5 +12,8 @@
 #import "URLHeaderDefine.h"
 #import "ConstantsDefine.h"
 #import "NetWorkrequestManage.h"
+#import "FactoryTableViewCell.h"
+#import "FactoryCollectionViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #endif /* PianKe_Prefix_pch */

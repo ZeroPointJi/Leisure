@@ -8,10 +8,13 @@
 
 #import "ProductViewController.h"
 #import "ProductListModel.h"
+#import "ProductListModelCell.h"
 
 #import "ProductInfoViewController.h"
 
-@interface ProductViewController ()
+@interface ProductViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger start; // 请求开始位置
 @property (nonatomic, assign) NSInteger limit; // 请求的个数
@@ -32,7 +35,7 @@
 - (void)requestData {
     [NetWorkrequestManage requestWithType:POST url:SHOPLIST_URL parameters:@{@"start" : @(_start), @"limit" : @(_limit)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"dataDic = %@", dataDic);
+        //NSLog(@"dataDic = %@", dataDic);
         
         // 获取列表数据源
         NSArray *listArr = dataDic[@"data"][@"list"];
@@ -43,13 +46,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            // 测试跳转
-//            ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
-//            ProductListModel *model = self.listArray[0];
-//            infoVC.contentid = model.contentid;
-//            
-//            [self.navigationController pushViewController:infoVC animated:YES];
-            
+            [self.tableView reloadData];
         });
         
         
@@ -61,23 +58,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor purpleColor];
+    
+    [self createTableView];
+    
     [self requestData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)createTableView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 60) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator = NO;
+    
+    [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ProductListModelCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ProductListModel class])];
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self.view addSubview:_tableView];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Table View Delegate & DataSouce
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.listArray.count;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 300;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BaseModel *model = self.listArray[indexPath.row];
+    BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([model class]) forIndexPath:indexPath];
+    [cell setData:model];
+    return cell;
+}
 
 @end

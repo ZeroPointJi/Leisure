@@ -8,30 +8,51 @@
 
 #import "TopicViewController.h"
 #import "TopicListModel.h"
+#import "TopicListModelCell.h"
 
-@interface TopicViewController ()
+@interface TopicViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, assign) BOOL ishot;
+
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger start;
 @property (nonatomic, assign) NSInteger limit;
 
-@property (nonatomic, strong) NSMutableArray *listArray; // 列表数据源
+@property (nonatomic, strong) NSMutableArray *addTimeListArray; // 最新数据源
+@property (nonatomic, strong) NSMutableArray *hotListArray; // 热门数据源
 
 @end
 
 @implementation TopicViewController
 
--(NSMutableArray *)listArray {
-    if (!_listArray) {
-        self.listArray = [NSMutableArray array];
+-(NSMutableArray *)addTimeListArray {
+    if (!_addTimeListArray) {
+        self.addTimeListArray = [NSMutableArray array];
     }
-    return _listArray;
+    return _addTimeListArray;
+}
+
+- (NSMutableArray *)hotListArray
+{
+    if (!_hotListArray) {
+        self.hotListArray = [NSMutableArray array];
+    }
+    return _hotListArray;
 }
 
 -(void)requestDataWith:(NSString *)sort {
     
     [NetWorkrequestManage requestWithType:POST url:TOPICLIST_URL parameters:@{@"sort" : sort, @"start" : @(_start), @"limit" : @(_limit)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        NSLog(@"dataDic = %@", dataDic);
+        //NSLog(@"dataDic = %@", dataDic);
+        
+        if (_ishot) {
+            [self.hotListArray removeAllObjects];
+        } else {
+            [self.addTimeListArray removeAllObjects];
+        }
         
         // 获取列表数据
         NSArray *listArr = dataDic[@"data"][@"list"];
@@ -47,12 +68,16 @@
             listModel.userInfo = userInfo;
             listModel.counter = counter;
             
-            [self.listArray addObject:listModel];
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.addTimeListArray addObject:listModel];
+            } else {
+                [self.hotListArray addObject:listModel];
+            }
         }
         
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [self createTableView];
         });
         
     } error:^(NSError *error) {
@@ -62,24 +87,76 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor redColor];
-    [self requestDataWith:@"hot"];
+    
+    _ishot = NO;
+    
+    [self createSegmentedControl];
+    
+    [self requestDataWith:@"addtime"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)createSegmentedControl
+{
+    self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"New", @"Hot"]];
+    _segmentedControl.frame = CGRectMake(0, 0, ScreenWidth, 40);
+    _segmentedControl.selectedSegmentIndex = 0;
+    [_segmentedControl addTarget:self action:@selector(changeState) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_segmentedControl];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)changeState
+{
+    self.ishot = !self.ishot;
+    [self requestDataWith:(_ishot ? @"hot" : @"addtime")];
 }
-*/
+
+- (void)createTableView
+{
+    [self.tableView removeFromSuperview];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeight - 104) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [UIColor whiteColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self.view addSubview:self.tableView];
+}
+
+#pragma mark - Table View Delegate & DataSouce
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 300;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_ishot) {
+        return self.hotListArray.count;
+    } else  {
+        return self.addTimeListArray.count;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BaseModel *model = nil;
+    if (_ishot) {
+        model = self.hotListArray[indexPath.row];
+    } else {
+        model = self.addTimeListArray[indexPath.row];
+        
+    }
+    BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TopicListModel class])];
+    if (cell == nil) {
+        cell = [FactoryTableViewCell createTableViewCell:model];
+    }
+    [cell setData:model];
+    
+    return cell;
+}
 
 @end

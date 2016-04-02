@@ -71,12 +71,12 @@
     }
     
     self.naVC = [[UINavigationController alloc] initWithRootViewController:baseVC];
-    baseVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"三" style:UIBarButtonItemStyleDone target:self action:@selector(pushLeft)];
-    baseVC.navigationItem.title = self.rootViewNameArr[index];
+    baseVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_menu_icon"] style:UIBarButtonItemStyleDone target:self action:@selector(pushLeft)];
+    //UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    //imageView.image = [UIImage imageNamed:@"nav_menu_icon"];
+    //baseVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imageView];
+    //baseVC.navigationItem.title = self.rootViewNameArr[index];
     [self.view addSubview:self.naVC.view];
-//    self.rootView = baseVC.view;
-    //[self createNvButtonAndAddToView:self.naVC.view];
-    //[self addChildViewController:baseVC];
 }
 
 // 创建导航按钮并且添加到视图上

@@ -11,7 +11,7 @@
 
 @interface RadioListModel : BaseModel
 
-@property (nonatomic, copy) NSString *count; // 收听次数
+@property (nonatomic, copy) NSNumber *count; // 收听次数
 @property (nonatomic, copy) NSString *coverimg; // 图片地址
 @property (nonatomic, copy) NSString *desc; // 内容简介
 @property (nonatomic, assign) BOOL isNew; // 标记是否是最新

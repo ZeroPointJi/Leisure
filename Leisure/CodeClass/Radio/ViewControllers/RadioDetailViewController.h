@@ -7,10 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "RadioListModel.h"
 
 @interface RadioDetailViewController : BaseViewController
 
-@property (nonatomic, copy) NSString *radioID;
+@property (nonatomic, strong) RadioListModel *radioModel;
 
 @end
 
