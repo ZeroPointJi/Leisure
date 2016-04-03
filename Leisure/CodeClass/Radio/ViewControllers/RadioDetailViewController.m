@@ -10,7 +10,6 @@
 #import "RadioDetailListModel.h"
 #import "RadioDetailListModelCell.h"
 #import "RadioDetailListHeaderView.h"
-#import "CycleScrollView.h"
 #import "RadioCarouselModel.h"
 #import <MJRefresh.h>
 

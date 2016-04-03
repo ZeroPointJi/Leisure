@@ -12,7 +12,6 @@
 #import "ReadListModelCell.h"
 #import "ReadDetailViewController.h"
 #import "FactoryCollectionViewCell.h"
-#import "CycleScrollView.h"
 
 @interface ReadViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -87,16 +86,12 @@
 
 - (void)createCycleScrollView
 {
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth,ScreenHeight - ScreenWidth - 64) animationDuration:5];
-    cycle.totalPagesCount = self.carouselArray.count;
-    cycle.fetchContentViewAtIndex = ^(NSInteger page) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - ScreenWidth - 64)];
-        ReadCarouselModel *model = self.carouselArray[page];
-        NSURL *url = [NSURL URLWithString:model.img];
-        [imageView sd_setImageWithURL:url];
-        
-        return imageView;
-    };
+    NSMutableArray *imageUrlArr = [NSMutableArray array];
+    for (ReadCarouselModel *model in self.carouselArray) {
+        [imageUrlArr addObject:model.img];
+    }
+    SDCycleScrollView *cycle = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - ScreenWidth - 64) imageURLStringsGroup:imageUrlArr];
+    cycle.autoScrollTimeInterval = 5;
     [self.view addSubview:cycle];
 }
 

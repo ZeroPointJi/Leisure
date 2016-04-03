@@ -25,8 +25,6 @@
 		7911F4651CAA6B8B0084006F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7911F4641CAA6B8B0084006F /* Main.storyboard */; };
 		7911F4691CAA6D190084006F /* BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7911F4671CAA6D190084006F /* BaseCollectionViewCell.m */; };
 		7911F46A1CAA6D190084006F /* BaseCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7911F4681CAA6D190084006F /* BaseCollectionViewCell.xib */; };
-		796F28E41CAFA45E00D0B5C0 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F28E31CAFA45E00D0B5C0 /* NSTimer+Addition.m */; };
-		796F28E71CAFA46E00D0B5C0 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F28E61CAFA46E00D0B5C0 /* CycleScrollView.m */; };
 		79771E8A1CABEDB20077403D /* ProductCommentlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79771E471CABEDB20077403D /* ProductCommentlistModel.m */; };
 		79771E8B1CABEDB20077403D /* ProductListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79771E491CABEDB20077403D /* ProductListModel.m */; };
 		79771E8C1CABEDB20077403D /* ProductUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79771E4B1CABEDB20077403D /* ProductUserInfoModel.m */; };
@@ -130,10 +128,6 @@
 		7911F4681CAA6D190084006F /* BaseCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BaseCollectionViewCell.xib; sourceTree = "<group>"; };
 		7911F46C1CAA6D930084006F /* ConstantsDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantsDefine.h; sourceTree = "<group>"; };
 		7911F46D1CAA71370084006F /* PianKe-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PianKe-Prefix.pch"; sourceTree = "<group>"; };
-		796F28E21CAFA45E00D0B5C0 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
-		796F28E31CAFA45E00D0B5C0 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
-		796F28E51CAFA46E00D0B5C0 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
-		796F28E61CAFA46E00D0B5C0 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
 		79771E461CABEDB20077403D /* ProductCommentlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCommentlistModel.h; sourceTree = "<group>"; };
 		79771E471CABEDB20077403D /* ProductCommentlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCommentlistModel.m; sourceTree = "<group>"; };
 		79771E481CABEDB20077403D /* ProductListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListModel.h; sourceTree = "<group>"; };
@@ -338,8 +332,6 @@
 				79E0F0201CACB919002D451F /* FactoryTableViewCell.m */,
 				79E0F0221CACBBCD002D451F /* FactoryCollectionViewCell.h */,
 				79E0F0231CACBBCD002D451F /* FactoryCollectionViewCell.m */,
-				796F28E51CAFA46E00D0B5C0 /* CycleScrollView.h */,
-				796F28E61CAFA46E00D0B5C0 /* CycleScrollView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -354,8 +346,6 @@
 		7911F43F1CAA6B530084006F /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				796F28E21CAFA45E00D0B5C0 /* NSTimer+Addition.h */,
-				796F28E31CAFA45E00D0B5C0 /* NSTimer+Addition.m */,
 				79771EAB1CABEE3F0077403D /* NetWorkrequestManage.h */,
 				79771EAC1CABEE3F0077403D /* NetWorkrequestManage.m */,
 				79771EAA1CABEDEF0077403D /* UrlHeaderDefine.h */,
@@ -830,12 +820,10 @@
 				79771EA81CABEDB20077403D /* TopicViewController.m in Sources */,
 				7911F3DF1CAA6AFA0084006F /* main.m in Sources */,
 				79C034451CAD245600AA5478 /* RadioDetailListModel.m in Sources */,
-				796F28E71CAFA46E00D0B5C0 /* CycleScrollView.m in Sources */,
 				791195411CAD445800913712 /* RadioDetailListHeaderView.m in Sources */,
 				79771EA41CABEDB20077403D /* TopicListModel.m in Sources */,
 				79771E9A1CABEDB20077403D /* ReadCarouselModel.m in Sources */,
 				7911F4631CAA6B530084006F /* ViewController.m in Sources */,
-				796F28E41CAFA45E00D0B5C0 /* NSTimer+Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

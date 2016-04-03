@@ -10,7 +10,6 @@
 #import "RadioListModel.h"
 #import "RadioListModelCell.h"
 #import "RadioCarouselModel.h"
-#import "CycleScrollView.h"
 #import <MJRefresh.h>
 
 #import "RadioDetailViewController.h"
@@ -153,16 +152,12 @@
 
 - (void)createCycleScorllView
 {
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180) animationDuration:5];
-    cycle.totalPagesCount = self.carouselArray.count;
-    cycle.fetchContentViewAtIndex = ^(NSInteger page){
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
-        RadioCarouselModel *model = self.carouselArray[page];
-        NSURL *url = [NSURL URLWithString:model.img];
-        [imageView sd_setImageWithURL:url];
-        
-        return imageView;
-    };
+    NSMutableArray *imageURLArr = [NSMutableArray array];
+    for (RadioCarouselModel *model in self.carouselArray) {
+        [imageURLArr addObject:model.img];
+    }
+    SDCycleScrollView *cycle = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, 180) imageURLStringsGroup:imageURLArr];
+    cycle.autoScrollTimeInterval = 5;
     [self.view addSubview:cycle];
 }
 
