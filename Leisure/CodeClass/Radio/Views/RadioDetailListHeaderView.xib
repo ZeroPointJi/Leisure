@@ -19,10 +19,10 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKq-Gw-teN">
-                    <rect key="frame" x="70" y="30" width="100" height="20"/>
+                    <rect key="frame" x="70" y="30" width="150" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="mQr-fJ-ZLT"/>
-                        <constraint firstAttribute="width" constant="100" id="y6X-Ou-YLD"/>
+                        <constraint firstAttribute="width" constant="150" id="y6X-Ou-YLD"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-Xi-z4r">
-                    <rect key="frame" x="480" y="30" width="100" height="20"/>
+                    <rect key="frame" x="430" y="30" width="150" height="20"/>
                     <state key="normal" title="5333" image="播放量"/>
                 </button>
             </subviews>

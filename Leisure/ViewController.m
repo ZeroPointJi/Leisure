@@ -68,7 +68,7 @@
         baseVC = [[TopicViewController alloc] init];
     } else if (index == 3) {
         baseVC = [[ProductViewController alloc] init];
-//    }
+    }
     
     self.naVC = [[UINavigationController alloc] initWithRootViewController:baseVC];
     

@@ -17,10 +17,6 @@
     [self.coverImageView sd_setImageWithURL:url];
     
     self.titleLabel.text = model.title;
-    
-    [self.buyButton.layer setMasksToBounds:YES];
-    [self.buyButton.layer setCornerRadius:10];
-    [self.buyButton.layer setBorderWidth:1];
 }
 
 @end
