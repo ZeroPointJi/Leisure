@@ -70,7 +70,7 @@
     _start = 0;
     [NetWorkrequestManage requestWithType:POST url:RADIODETAILLIST_URL parameters:@{@"radioid" : _radioModel.radioid} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        NSLog(@"%@", dataDic);
+        //NSLog(@"%@", dataDic);
         
         [self.detailListArray removeAllObjects];
         

@@ -145,6 +145,8 @@
     ProductListModel *model = self.listArray[indexPath.row];
     ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
     infoVC.contentid = model.contentid;
+    infoVC.barButtonTitle = model.title;
+    
     [self.navigationController pushViewController:infoVC animated:YES];
 }
 

@@ -68,7 +68,7 @@
         baseVC = [[TopicViewController alloc] init];
     } else if (index == 3) {
         baseVC = [[ProductViewController alloc] init];
-    }
+//    }
     
     self.naVC = [[UINavigationController alloc] initWithRootViewController:baseVC];
     
@@ -83,27 +83,10 @@
     navigativeSpacer.width = -15;
     baseVC.navigationItem.leftBarButtonItems = @[navigativeSpacer, item];
     
-    
-    //UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
-    //label.text = self.rootViewNameArr[index];
-    //label.textColor = [UIColor darkGrayColor];
-    //label.font = [UIFont systemFontOfSize:20];
-    //baseVC.navigationItem.titleView = label;
     baseVC.barButtonTitle = self.rootViewNameArr[index];
     
     [self.view addSubview:self.naVC.view];
 }
-
-// 创建导航按钮并且添加到视图上
-//- (void)createNvButtonAndAddToView:(UIView *)view
-//{
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//    button.frame = CGRectMake(0, 20, 60, 30);
-//    [button setTitle:@"三" forState:UIControlStateNormal];
-//    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(pushLeft) forControlEvents:UIControlEventTouchUpInside];
-//    [view addSubview:button];
-//}
 
 // 推出左视图
 - (void)pushLeft
@@ -144,23 +127,7 @@
     return CGRectContainsPoint(self.naVC.view.frame, [gestureRecognizer locationInView:self.view]);
 }
 
-#pragma mark - Table View Delegate -
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.naVC.view removeFromSuperview];
-    self.naVC = nil;
-    [self createViewController:indexPath.row];
-    
-    [self changeXTo:kLeftWidth];
-    [UIView animateWithDuration:0.3 animations:^{
-        [self changeXTo:0];
-    } completion:^(BOOL finished) {
-        _showLeft = NO;
-    }];
-}
-
-#pragma mark - Table View sourceData -
+#pragma mark - Table View Delegate & sourceData -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -176,4 +143,17 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.naVC.view removeFromSuperview];
+    self.naVC = nil;
+    [self createViewController:indexPath.row];
+    
+    [self changeXTo:kLeftWidth];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self changeXTo:0];
+    } completion:^(BOOL finished) {
+        _showLeft = NO;
+    }];
+}
 @end
