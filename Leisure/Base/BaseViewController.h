@@ -10,4 +10,8 @@
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic, copy) NSString *barButtonTitle;
+
+- (void)createBackButton;
+
 @end

@@ -7,15 +7,14 @@
 //
 
 #import "TopicListModelCell.h"
-#import "TopicListModel.h"
 
 @implementation TopicListModelCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        //self.hotLabel = [[UILabel alloc] init];
-        //[self.contentView addSubview:_hotLabel];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         self.hotImage = [[UIImageView alloc] init];
         [self.contentView addSubview:_hotImage];
         
@@ -67,7 +66,7 @@
     
     self.contentLabel.text = model.content;
     self.contentLabel.font = [UIFont systemFontOfSize:15];
-    self.contentLabel.numberOfLines = 3;
+    self.contentLabel.numberOfLines = 0;
     
     self.addtime_fLabel.text = model.addtime_f;
     self.addtime_fLabel.textColor = [UIColor grayColor];
@@ -91,11 +90,10 @@
         self.hotImage.frame = CGRectMake(ishotX, ishotY, ishotWidth, ishotWidth);
     }
     
-    
     CGFloat titleX = ishotX + ishotWidth + (_ishot ? 10 : 0);
     CGFloat titleY = 25;
     CGFloat titleWidth = ScreenWidth - titleX - 20;
-    CGFloat titleHeight = [self autoHeightWithLabel:self.titleLabel labelWidth:titleWidth];
+    CGFloat titleHeight = [TopicListModelCell autoHeightWithFont:_titleLabel.font text:_titleLabel.text labelWidth:titleWidth];
     self.titleLabel.frame = CGRectMake(titleX, titleY, titleWidth, titleHeight);
     
     CGFloat coverX = 20;
@@ -110,13 +108,13 @@
     CGFloat contentX = coverX + coverWidth + (_hasCoverImage ? 10 : 0);
     CGFloat contentY = coverY;
     CGFloat contentWidth = ScreenWidth - contentX - 20;
-    CGFloat contentHeight = 60;
+    CGFloat contentHeight = [TopicListModelCell autoHeightWithFont:_contentLabel.font text:_contentLabel.text labelWidth:contentWidth];
     self.contentLabel.frame = CGRectMake(contentX, contentY, contentWidth, contentHeight);
     
     CGFloat addtime_fX = 20;
-    CGFloat addtime_fY = contentY + (coverWidth ? coverWidth : contentHeight) + 20;
+    CGFloat addtime_fY = contentY + (_hasCoverImage ? (coverWidth > contentHeight ? coverWidth : contentHeight): contentHeight) + 20;
     CGFloat addtime_fWidth = 100;
-    CGFloat addtime_fHeight = [self autoHeightWithLabel:self.addtime_fLabel labelWidth:addtime_fWidth];
+    CGFloat addtime_fHeight = [TopicListModelCell autoHeightWithFont:_addtime_fLabel.font text:_addtime_fLabel.text labelWidth:addtime_fWidth];
     self.addtime_fLabel.frame = CGRectMake(addtime_fX, addtime_fY, addtime_fWidth, addtime_fHeight);
     
     CGFloat likeWidth = 40;
@@ -132,12 +130,52 @@
     self.commononButton.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);
 }
 
-- (CGFloat)autoHeightWithLabel:(UILabel *)label labelWidth:(CGFloat)labelWidth
++ (CGFloat)autoHeightWithFont:(UIFont *)font text:(NSString *)text labelWidth:(CGFloat)labelWidth
 {
-    NSDictionary *attribute = @{NSFontAttributeName: label.font};
-    CGFloat height = [label.text boundingRectWithSize:CGSizeMake(labelWidth, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size.height;
+    NSDictionary *attribute = @{NSFontAttributeName: font};
+    CGFloat height = [text boundingRectWithSize:CGSizeMake(labelWidth, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size.height;
     
     return height;
+}
+
++ (CGFloat)getHeight:(TopicListModel *)model
+{
+    BOOL ishot = model.ishot;
+    BOOL hasCoverImg = [model.coverimg length];
+    
+    CGFloat ishotX = 20;
+    CGFloat ishotWidth = 0;
+    if (ishot) {
+        ishotWidth = 30;
+    }
+    
+    CGFloat titleX = ishotX + ishotWidth + (ishot ? 10 : 0);
+    CGFloat titleY = 25;
+    CGFloat titleWidth = ScreenWidth - titleX - 20;
+    CGFloat titleHeight = [TopicListModelCell autoHeightWithFont:[UIFont boldSystemFontOfSize:20] text:model.title labelWidth:titleWidth];
+    
+    CGFloat coverX = 20;
+    CGFloat coverY = titleY + titleHeight + 20;
+    CGFloat coverWidth = 0;
+    if ([model.coverimg length]) {
+        coverX = 20;
+        coverWidth = 60;
+    }
+    
+    CGFloat contentX = coverX + coverWidth + (hasCoverImg ? 10 : 0);
+    CGFloat contentY = coverY;
+    CGFloat contentWidth = ScreenWidth - contentX - 20;
+    CGFloat contentHeight = [TopicListModelCell autoHeightWithFont:[UIFont systemFontOfSize:15] text:model.content labelWidth:contentWidth];
+    //< 17.900391 * 3 ? [TopicListModelCell autoHeightWithFont:[UIFont systemFontOfSize:15] text:model.content labelWidth:contentWidth] : 17.900391 * 3;
+    
+    CGFloat addtime_fY = contentY + (hasCoverImg ? (coverWidth > contentHeight ? coverWidth : contentHeight): contentHeight) + 20;
+    
+    CGFloat likeY = addtime_fY;
+    
+    CGFloat buttonHeight = 28;
+    CGFloat buttonY = likeY - 3;
+    
+    return buttonY + buttonHeight + 20;
 }
 
 @end

@@ -86,10 +86,12 @@
 
 // 首次请求
 - (void)requestFirstData {
-    [self.allListArray removeAllObjects];
+    _start = 0;
     [NetWorkrequestManage requestWithType:POST url:RADIOLIST_URL parameters:@{} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
         //NSLog(@"dataDic = %@", dataDic);
+        
+        [self.allListArray removeAllObjects];
         
         // 获取所有电台列表数据
         NSArray *allListArr = dataDic[@"data"][@"alllist"];
@@ -146,8 +148,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self requestFirstData];
+}
+
+- (void)createBackButton
+{
     
-    //[self requestRefreshData];
 }
 
 - (void)createCycleScorllView
@@ -211,8 +216,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    RadioListModel *model = self.allListArray[indexPath.row];
     RadioDetailViewController *radioDetailVC = [[RadioDetailViewController alloc] init];
-    radioDetailVC.radioModel = self.allListArray[indexPath.row];
+    radioDetailVC.radioModel = model;
+    radioDetailVC.barButtonTitle = model.title;
     [self.navigationController pushViewController:radioDetailVC animated:YES];
 }
 

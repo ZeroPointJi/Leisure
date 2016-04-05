@@ -60,16 +60,21 @@
         // 获取详情列表的数据源
         NSArray *listArr = dataDic[@"data"][@"list"];
         for (NSDictionary *list in listArr) {
+            TopicListModel *listModel = [[TopicListModel alloc] init];
+            TopicUserInfoModel *userInfo = [[TopicUserInfoModel alloc] init];
+            TopicCounterListModel *counter = [[TopicCounterListModel alloc] init];
             
-            // 创建listmodel
-            TopicListModel *detailListModel = [[TopicListModel alloc] init];
-            [detailListModel setValuesForKeysWithDictionary:list];
+            [listModel setValuesForKeysWithDictionary:list];
+            [counter setValuesForKeysWithDictionary:list[@"counterList"]];
+            [userInfo setValuesForKeysWithDictionary:list[@"userinfo"]];
             
-            // 判断添加热门还是最新
-            if ([sort isEqualToString:@"hot"]) {
-                [self.hotListArray addObject:detailListModel];
+            listModel.userInfo = userInfo;
+            listModel.counter = counter;
+            
+            if ([sort isEqualToString:@"addtime"]) {
+                [self.addTimeListArray addObject:listModel];
             } else {
-                [self.addTimeListArray addObject:detailListModel];
+                [self.hotListArray addObject:listModel];
             }
         }
         
@@ -91,18 +96,11 @@
 -(void)requestDataWith
 {
     NSString *sort = nil;
-    if (_ishot) {
-        sort = @"hot";
-        [self.hotListArray removeAllObjects];
-    } else {
-        sort = @"addtime";
-        [self.addTimeListArray removeAllObjects];
-    }
+    sort = _ishot ? @"hot" : @"addtime";
     self.start = 0;
     [NetWorkrequestManage requestWithType:POST url:TOPICLIST_URL parameters:@{@"sort" : sort, @"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        //NSLog(@"dataDic = %@", dataDic);
-        
+       
         if (_ishot) {
             [self.hotListArray removeAllObjects];
         } else {
@@ -147,10 +145,14 @@
     
     _ishot = NO;
     
-    
     [self createSegmentedControl];
     
     [self requestDataWith];
+}
+
+- (void)createBackButton
+{
+    
 }
 
 - (void)createSegmentedControl
@@ -175,8 +177,7 @@
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    //_tableView.separatorStyle = UITableViewRowAnimationNone;
-    //_tableView.separatorColor = [UIColor grayColor];
+    _tableView.showsVerticalScrollIndicator = NO;
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestDataWith)];
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshDattWithSort)];
     
@@ -190,7 +191,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 200;
+    TopicListModel *model = nil;
+    if (_ishot) {
+        model = _hotListArray[indexPath.row];
+    } else {
+        model = _addTimeListArray[indexPath.row];
+    }
+    return [TopicListModelCell getHeight:model];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -210,12 +217,11 @@
     } else {
         model = self.addTimeListArray[indexPath.row];
     }
+    
     BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TopicListModel class])];
     if (cell == nil) {
         cell = [FactoryTableViewCell createTableViewCell:model];
     }
-    //cell.userInteractionEnabled = NO;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setData:model];
     
     return cell;

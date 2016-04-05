@@ -7,6 +7,7 @@
 //
 
 #import "BaseTableViewCell.h"
+#import "TopicListModel.h"
 
 @interface TopicListModelCell : BaseTableViewCell
 
@@ -21,5 +22,7 @@
 @property (strong, nonatomic) UILabel *addtime_fLabel;
 @property (strong, nonatomic) UIButton *commononButton;
 @property (strong, nonatomic) UILabel *likecountLabel;
+
++ (CGFloat)getHeight:(TopicListModel *)model;
 
 @end

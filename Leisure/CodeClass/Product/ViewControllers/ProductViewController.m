@@ -56,7 +56,6 @@
             }
         });
         
-        
     } error:^(NSError *error) {
         
     }];
@@ -64,10 +63,11 @@
 
 - (void)requestData {
     _start = 0;
-    [self.listArray removeAllObjects];
     [NetWorkrequestManage requestWithType:POST url:SHOPLIST_URL parameters:@{@"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         //NSLog(@"dataDic = %@", dataDic);
+        
+        [self.listArray removeAllObjects];
         
         // 获取列表数据源
         NSArray *listArr = dataDic[@"data"][@"list"];
@@ -80,6 +80,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         });
         
         
@@ -95,6 +96,11 @@
     [self createTableView];
     
     [self requestData];
+}
+
+- (void)createBackButton
+{
+    
 }
 
 - (void)createTableView

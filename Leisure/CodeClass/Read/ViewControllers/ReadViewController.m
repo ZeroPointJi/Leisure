@@ -86,6 +86,11 @@
     [self requestData];
 }
 
+- (void)createBackButton
+{
+    
+}
+
 - (void)createCycleScrollView
 {
     NSMutableArray *imageUrlArr = [NSMutableArray array];
@@ -148,6 +153,7 @@
    
     ReadListModel *model = self.listArray[indexPath.row];
     detailVC.typeID = model.type;
+    detailVC.barButtonTitle = model.name;
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

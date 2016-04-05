@@ -76,19 +76,20 @@
     button.frame = CGRectMake(0, 0, 50, 44);
     [button setImage:[UIImage imageNamed:@"菜单"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(pushLeft) forControlEvents:UIControlEventTouchUpInside];
-    button.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 20);
-    
-    //UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"菜单"] style:UIBarButtonItemStyleDone target:self action:@selector(pushLeft)];
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    button.adjustsImageWhenHighlighted = NO;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIBarButtonItem *navigativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    navigativeSpacer.width = -15;
+    baseVC.navigationItem.leftBarButtonItems = @[navigativeSpacer, item];
     
-    baseVC.navigationItem.leftBarButtonItem = item;
     
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
-    label.text = self.rootViewNameArr[index];
-    label.textColor = [UIColor darkGrayColor];
-    label.font = [UIFont systemFontOfSize:20];
-    baseVC.navigationItem.titleView = label;
+    //UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+    //label.text = self.rootViewNameArr[index];
+    //label.textColor = [UIColor darkGrayColor];
+    //label.font = [UIFont systemFontOfSize:20];
+    //baseVC.navigationItem.titleView = label;
+    baseVC.barButtonTitle = self.rootViewNameArr[index];
     
     [self.view addSubview:self.naVC.view];
 }

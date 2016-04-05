@@ -15,12 +15,16 @@
 @interface ReadDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
+
 @property (nonatomic, assign) NSInteger requestSort; // 请求数据的类型 0 最新 1 热门
 
 @property (nonatomic, assign) NSInteger start; // 请求开始的位置
 
 @property (nonatomic, strong) NSMutableArray *hotListArray; // 热门数据源
 @property (nonatomic, strong) NSMutableArray *addtimeListArray; // 最新数据源
+
+@property (nonatomic, strong) UIButton *addtimeButton;
+@property (nonatomic, strong) UIButton *hotButton;
 
 @end
 
@@ -87,18 +91,14 @@
 -(void)requestDataWithSort
 {
     NSString *sort = nil;
-    if (_requestSort) {
-        sort = @"hot";
-        [self.hotListArray removeAllObjects];
-    } else {
-        sort = @"addtime";
-        [self.addtimeListArray removeAllObjects];
-    }
+    sort = _requestSort ? @"hot" : @"addtime";
     _start = 0;
     [NetWorkrequestManage requestWithType:POST url:READDETAILLIST_URL parameters:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(kLIMIT), @"sort" : sort} finish:^(NSData *data) {
         
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
         //NSLog(@"dataDic = %@", dataDic);
+        
+        _requestSort ? [self.hotListArray removeAllObjects] : [self.addtimeListArray removeAllObjects];
         
         // 获取详情列表的数据源
         NSArray *listArr = dataDic[@"data"][@"list"];
@@ -120,6 +120,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -141,20 +142,40 @@
 
 - (void)createNaButton
 {
-    UIBarButtonItem *addtimeItem = [[UIBarButtonItem alloc] initWithTitle:@"最新" style:UIBarButtonItemStyleDone target:self action:@selector(addtime)];
-    UIBarButtonItem *hotItem = [[UIBarButtonItem alloc] initWithTitle:@"热门" style:UIBarButtonItemStyleDone target:self action:@selector(hot)];
+    
+    self.addtimeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _addtimeButton.frame = CGRectMake(0, 0, 25, 40);
+    [_addtimeButton setImage:[UIImage imageNamed:@"NEW2"] forState:UIControlStateNormal];
+    [_addtimeButton setImage:[UIImage imageNamed:@"NEW1"] forState:UIControlStateSelected];
+    [_addtimeButton addTarget:self action:@selector(addtime) forControlEvents:UIControlEventTouchUpInside];
+    _addtimeButton.adjustsImageWhenHighlighted = NO;
+    self.addtimeButton.selected = YES;
+    UIBarButtonItem *addtimeItem = [[UIBarButtonItem alloc] initWithCustomView:_addtimeButton];
+    
+    self.hotButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _hotButton.frame = CGRectMake(0, 0, 25, 40);
+    [_hotButton setImage:[UIImage imageNamed:@"HOT2"] forState:UIControlStateNormal];
+    [_hotButton setImage:[UIImage imageNamed:@"HOT1"] forState:UIControlStateSelected];
+    [_hotButton addTarget:self action:@selector(hot) forControlEvents:UIControlEventTouchUpInside];
+    _hotButton.adjustsImageWhenHighlighted = NO;
+    UIBarButtonItem *hotItem = [[UIBarButtonItem alloc] initWithCustomView:_hotButton];
+    
     self.navigationItem.rightBarButtonItems = @[hotItem, addtimeItem];
 }
 
 - (void)addtime
 {
     _requestSort = 0;
+    self.hotButton.selected = NO;
+    self.addtimeButton.selected = YES;
     [self requestDataWithSort];
 }
 
 - (void)hot
 {
     _requestSort = 1;
+    self.hotButton.selected = YES;
+    self.addtimeButton.selected = NO;
     [self requestDataWithSort];
 }
 

@@ -12,7 +12,7 @@
 
 - (void)setData:(BaseModel *)model
 {
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)awakeFromNib {

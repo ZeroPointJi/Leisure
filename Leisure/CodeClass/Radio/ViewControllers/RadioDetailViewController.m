@@ -67,11 +67,12 @@
 }
 
 - (void) requestData {
-    [self.detailListArray removeAllObjects];
+    _start = 0;
     [NetWorkrequestManage requestWithType:POST url:RADIODETAILLIST_URL parameters:@{@"radioid" : _radioModel.radioid} finish:^(NSData *data) {
-        
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
         //NSLog(@"%@", dataDic);
+        
+        [self.detailListArray removeAllObjects];
         
         NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"radioInfo"][@"coverimg"]];
         [_headerImageView sd_setImageWithURL:url];
@@ -85,7 +86,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -111,7 +112,7 @@
 
 - (void)createTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, ScreenHeight - 264) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, ScreenHeight - 244) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
