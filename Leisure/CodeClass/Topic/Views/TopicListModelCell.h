@@ -13,7 +13,8 @@
 @property (nonatomic, assign) BOOL ishot;
 @property (nonatomic, assign) BOOL hasCoverImage;
 
-@property (strong, nonatomic) UILabel *hotLabel;
+@property (strong, nonatomic) UIImageView *hotImage;
+//@property (strong, nonatomic) UILabel *hotLabel;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIImageView *coverImageView;
 @property (strong, nonatomic) UILabel *contentLabel;

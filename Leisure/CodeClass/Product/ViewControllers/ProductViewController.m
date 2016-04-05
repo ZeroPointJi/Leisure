@@ -12,12 +12,13 @@
 
 #import "ProductInfoViewController.h"
 
+#define kLIMIT 10
+
 @interface ProductViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger start; // 请求开始位置
-@property (nonatomic, assign) NSInteger limit; // 请求的个数
 
 @property (nonatomic, strong) NSMutableArray *listArray; // 列表数据源
 
@@ -32,8 +33,9 @@
     return _listArray;
 }
 
-- (void)requestData {
-    [NetWorkrequestManage requestWithType:POST url:SHOPLIST_URL parameters:@{@"start" : @(_start), @"limit" : @(_limit)} finish:^(NSData *data) {
+- (void)requestRefreshData {
+    _start += kLIMIT;
+    [NetWorkrequestManage requestWithType:POST url:SHOPLIST_URL parameters:@{@"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         //NSLog(@"dataDic = %@", dataDic);
         
@@ -47,6 +49,37 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            if (listArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+        });
+        
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+- (void)requestData {
+    _start = 0;
+    [self.listArray removeAllObjects];
+    [NetWorkrequestManage requestWithType:POST url:SHOPLIST_URL parameters:@{@"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        //NSLog(@"dataDic = %@", dataDic);
+        
+        // 获取列表数据源
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        for (NSDictionary *list in listArr) {
+            ProductListModel *listModel = [[ProductListModel alloc] init];
+            [listModel setValuesForKeysWithDictionary:list];
+            [self.listArray addObject:listModel];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         });
         
         
@@ -70,6 +103,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshData)];
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ProductListModelCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([ProductListModel class])];
     
@@ -98,5 +133,13 @@
     [cell setData:model];
     return cell;
 }
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    ProductListModel *model = self.listArray[indexPath.row];
+//    ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
+//    infoVC.contentid = model.contentid;
+//    [self.navigationController pushViewController:infoVC animated:YES];
+//}
 
 @end

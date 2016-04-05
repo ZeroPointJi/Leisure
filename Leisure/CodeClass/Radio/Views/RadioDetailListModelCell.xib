@@ -43,7 +43,7 @@
                             <constraint firstAttribute="height" constant="35" id="PWl-Py-RCw"/>
                             <constraint firstAttribute="width" constant="35" id="Qdr-dP-jwf"/>
                         </constraints>
-                        <state key="normal" image="u68"/>
+                        <state key="normal" image="播放"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -77,6 +77,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="u68" width="35" height="35"/>
+        <image name="播放" width="59" height="59"/>
     </resources>
 </document>

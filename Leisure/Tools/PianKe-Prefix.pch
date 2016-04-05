@@ -16,5 +16,6 @@
 #import "FactoryCollectionViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
+#import <MJRefresh.h>
 
 #endif /* PianKe_Prefix_pch */

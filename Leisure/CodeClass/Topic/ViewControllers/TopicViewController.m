@@ -10,6 +10,8 @@
 #import "TopicListModel.h"
 #import "TopicListModelCell.h"
 
+#define kLIMIT 10
+
 @interface TopicViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, assign) BOOL ishot;
@@ -18,7 +20,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, assign) NSInteger start;
-@property (nonatomic, assign) NSInteger limit;
 
 @property (nonatomic, strong) NSMutableArray *addTimeListArray; // 最新数据源
 @property (nonatomic, strong) NSMutableArray *hotListArray; // 热门数据源
@@ -42,9 +43,63 @@
     return _hotListArray;
 }
 
--(void)requestDataWith:(NSString *)sort {
-    
-    [NetWorkrequestManage requestWithType:POST url:TOPICLIST_URL parameters:@{@"sort" : sort, @"start" : @(_start), @"limit" : @(_limit)} finish:^(NSData *data) {
+- (void)requestRefreshDattWithSort
+{
+    _start += kLIMIT;
+    NSString *sort = nil;
+    if (_ishot) {
+        sort = @"hot";
+    } else {
+        sort = @"addtime";
+    }
+    [NetWorkrequestManage requestWithType:POST url:TOPICLIST_URL parameters:@{@"sort" : sort, @"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
+        
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
+        //NSLog(@"dataDic = %@", dataDic);
+        
+        // 获取详情列表的数据源
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        for (NSDictionary *list in listArr) {
+            
+            // 创建listmodel
+            TopicListModel *detailListModel = [[TopicListModel alloc] init];
+            [detailListModel setValuesForKeysWithDictionary:list];
+            
+            // 判断添加热门还是最新
+            if ([sort isEqualToString:@"hot"]) {
+                [self.hotListArray addObject:detailListModel];
+            } else {
+                [self.addTimeListArray addObject:detailListModel];
+            }
+        }
+        
+        // 回到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            if (listArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+        });
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+-(void)requestDataWith
+{
+    NSString *sort = nil;
+    if (_ishot) {
+        sort = @"hot";
+        [self.hotListArray removeAllObjects];
+    } else {
+        sort = @"addtime";
+        [self.addTimeListArray removeAllObjects];
+    }
+    self.start = 0;
+    [NetWorkrequestManage requestWithType:POST url:TOPICLIST_URL parameters:@{@"sort" : sort, @"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
         //NSLog(@"dataDic = %@", dataDic);
         
@@ -78,6 +133,8 @@
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createTableView];
+            [_tableView.mj_header endRefreshing];
+            [_tableView.mj_footer endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -90,9 +147,10 @@
     
     _ishot = NO;
     
+    
     [self createSegmentedControl];
     
-    [self requestDataWith:@"addtime"];
+    [self requestDataWith];
 }
 
 - (void)createSegmentedControl
@@ -107,7 +165,7 @@
 - (void)changeState
 {
     self.ishot = !self.ishot;
-    [self requestDataWith:(_ishot ? @"hot" : @"addtime")];
+    [self requestDataWith];
 }
 
 - (void)createTableView
@@ -117,7 +175,10 @@
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //_tableView.separatorStyle = UITableViewRowAnimationNone;
+    //_tableView.separatorColor = [UIColor grayColor];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestDataWith)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshDattWithSort)];
     
     self.navigationController.navigationBar.translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -129,7 +190,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 300;
+    return 200;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -148,12 +209,13 @@
         model = self.hotListArray[indexPath.row];
     } else {
         model = self.addTimeListArray[indexPath.row];
-        
     }
     BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TopicListModel class])];
     if (cell == nil) {
         cell = [FactoryTableViewCell createTableViewCell:model];
     }
+    //cell.userInteractionEnabled = NO;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setData:model];
     
     return cell;

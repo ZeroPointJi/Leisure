@@ -11,11 +11,12 @@
 #import "RadioDetailListModelCell.h"
 #import "RadioDetailListHeaderView.h"
 #import "RadioCarouselModel.h"
-#import <MJRefresh.h>
 
 #define kLIMIT 10
 
 @interface RadioDetailViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UIImageView *headerImageView;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -40,6 +41,7 @@
     _start += kLIMIT;
     [NetWorkrequestManage requestWithType:POST url:RADIODETAILMORE_URL parameters:@{ @"radioid" : _radioModel.radioid, @"start" : @(_start), @"limit" : @(kLIMIT)} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
+        
         
         // 获取所有电台列表数据
         NSArray *allListArr = dataDic[@"data"][@"list"];
@@ -69,7 +71,10 @@
     [NetWorkrequestManage requestWithType:POST url:RADIODETAILLIST_URL parameters:@{@"radioid" : _radioModel.radioid} finish:^(NSData *data) {
         
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        NSLog(@"%@", dataDic);
+        //NSLog(@"%@", dataDic);
+        
+        NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"radioInfo"][@"coverimg"]];
+        [_headerImageView sd_setImageWithURL:url];
         
         NSArray *listArray = dataDic[@"data"][@"list"];
         for (NSDictionary *modelDic in listArray) {
@@ -79,7 +84,8 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self createTableView];
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -90,7 +96,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self createHeaderImageView];
+    
+    [self createTableView];
+    
     [self requestData];
+}
+
+- (void)createHeaderImageView
+{
+    self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
+    [self.view addSubview:_headerImageView];
 }
 
 - (void)createTableView

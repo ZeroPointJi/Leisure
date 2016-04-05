@@ -14,8 +14,10 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.hotLabel = [[UILabel alloc] init];
-        [self.contentView addSubview:_hotLabel];
+        //self.hotLabel = [[UILabel alloc] init];
+        //[self.contentView addSubview:_hotLabel];
+        self.hotImage = [[UIImageView alloc] init];
+        [self.contentView addSubview:_hotImage];
         
         self.titleLabel = [[UILabel alloc] init];
         [self.contentView addSubview:_titleLabel];
@@ -34,7 +36,6 @@
         
         self.likecountLabel = [[UILabel alloc] init];
         [self.contentView addSubview:_likecountLabel];
-        
     }
     return self;
 }
@@ -43,14 +44,15 @@
 {
     self.ishot = model.ishot;
     if (model.ishot) {
-        self.hotLabel.text = @"精";
-        self.hotLabel.textColor = [UIColor grayColor];
-        self.hotLabel.font = [UIFont boldSystemFontOfSize:17];
-        self.hotLabel.textAlignment = NSTextAlignmentCenter;
-        self.hotLabel.layer.masksToBounds = YES;
-        self.hotLabel.layer.borderWidth = 1;
-        self.hotLabel.layer.borderColor = [UIColor grayColor].CGColor;
-        self.hotLabel.layer.cornerRadius = 5;
+        self.hotImage.image = [UIImage imageNamed:@"jing"];
+        //self.hotLabel.text = @"精";
+        //self.hotLabel.textColor = [UIColor grayColor];
+        //self.hotLabel.font = [UIFont boldSystemFontOfSize:17];
+        //self.hotLabel.textAlignment = NSTextAlignmentCenter;
+        //self.hotLabel.layer.masksToBounds = YES;
+        //self.hotLabel.layer.borderWidth = 1;
+        //self.hotLabel.layer.borderColor = [UIColor grayColor].CGColor;
+        //self.hotLabel.layer.cornerRadius = 5;
     }
     
     self.titleLabel.text = model.title;
@@ -70,7 +72,7 @@
     self.addtime_fLabel.text = model.addtime_f;
     self.addtime_fLabel.textColor = [UIColor grayColor];
     
-    [self.commononButton setImage:[UIImage imageNamed:@"u40"] forState:UIControlStateNormal];
+    [self.commononButton setImage:[UIImage imageNamed:@"评论1"] forState:UIControlStateNormal];
     
     self.likecountLabel.text = [model.counter.like stringValue];
     self.likecountLabel.textAlignment = NSTextAlignmentRight;
@@ -79,12 +81,14 @@
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     CGFloat ishotX = 20;
     CGFloat ishotY = 25;
     CGFloat ishotWidth = 0;
     if (_ishot) {
         ishotWidth = 30;
-        self.hotLabel.frame = CGRectMake(ishotX, ishotY, ishotWidth, ishotWidth);
+        self.hotImage.frame = CGRectMake(ishotX, ishotY, ishotWidth, ishotWidth);
     }
     
     
@@ -121,8 +125,8 @@
     CGFloat likeY = addtime_fY;
     self.likecountLabel.frame = CGRectMake(likeX, likeY, likeWidth, likeHeight);
     
-    CGFloat buttonWidth = 46;
-    CGFloat buttonHeight = 38;
+    CGFloat buttonWidth = 29;
+    CGFloat buttonHeight = 28;
     CGFloat buttonX = likeX - 10 - buttonWidth;
     CGFloat buttonY = likeY - 3;
     self.commononButton.frame = CGRectMake(buttonX, buttonY, buttonWidth, buttonHeight);

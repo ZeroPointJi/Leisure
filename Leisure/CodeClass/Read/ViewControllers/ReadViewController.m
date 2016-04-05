@@ -65,9 +65,8 @@
         
         // 回到主线程刷新ui
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
             [self createCycleScrollView];
-            // 刷新 collectionView
-            [self createCollectionView];
         });
         
     } error:^(NSError *error) {
@@ -79,6 +78,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 刷新 collectionView
+    [self createCollectionView];
     
     // 请求数据
     [self requestData];

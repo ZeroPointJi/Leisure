@@ -10,13 +10,14 @@
 #import "ReadDetailListModel.h"
 #import "ReadDetailListModelCell.h"
 
+#define kLIMIT 10
+
 @interface ReadDetailViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger requestSort; // 请求数据的类型 0 最新 1 热门
 
 @property (nonatomic, assign) NSInteger start; // 请求开始的位置
-@property (nonatomic, assign) NSInteger limit; // 每次请求的数据条数
 
 @property (nonatomic, strong) NSMutableArray *hotListArray; // 热门数据源
 @property (nonatomic, strong) NSMutableArray *addtimeListArray; // 最新数据源
@@ -38,9 +39,16 @@
     return _addtimeListArray;
 }
 
-
--(void)requestDataWithSort:(NSString *)sort {
-    [NetWorkrequestManage requestWithType:POST url:READDETAILLIST_URL parameters:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(_limit), @"sort" : sort} finish:^(NSData *data) {
+- (void)requestRefreshDattWithSort
+{
+    _start += kLIMIT;
+    NSString *sort = nil;
+    if (_requestSort) {
+        sort = @"hot";
+    } else {
+        sort = @"addtime";
+    }
+    [NetWorkrequestManage requestWithType:POST url:READDETAILLIST_URL parameters:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(kLIMIT), @"sort" : sort} finish:^(NSData *data) {
         
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
         //NSLog(@"dataDic = %@", dataDic);
@@ -64,6 +72,54 @@
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            if (listArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+        });
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+-(void)requestDataWithSort
+{
+    NSString *sort = nil;
+    if (_requestSort) {
+        sort = @"hot";
+        [self.hotListArray removeAllObjects];
+    } else {
+        sort = @"addtime";
+        [self.addtimeListArray removeAllObjects];
+    }
+    _start = 0;
+    [NetWorkrequestManage requestWithType:POST url:READDETAILLIST_URL parameters:@{@"typeid" : _typeID, @"start" : @(_start), @"limit" : @(kLIMIT), @"sort" : sort} finish:^(NSData *data) {
+        
+        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
+        //NSLog(@"dataDic = %@", dataDic);
+        
+        // 获取详情列表的数据源
+        NSArray *listArr = dataDic[@"data"][@"list"];
+        for (NSDictionary *list in listArr) {
+            
+            // 创建listmodel
+            ReadDetailListModel *detailListModel = [[ReadDetailListModel alloc] init];
+            [detailListModel setValuesForKeysWithDictionary:list];
+            
+            // 判断添加热门还是最新
+            if ([sort isEqualToString:@"hot"]) {
+                [self.hotListArray addObject:detailListModel];
+            } else {
+                [self.addtimeListArray addObject:detailListModel];
+            }
+        }
+        
+        // 回到主线程
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -79,7 +135,8 @@
     [self createNaButton];
     
     _requestSort = 0;
-    [self requestDataWithSort:@"addtime"];
+    
+    [self requestDataWithSort];
 }
 
 - (void)createNaButton
@@ -92,22 +149,13 @@
 - (void)addtime
 {
     _requestSort = 0;
-    if (self.addtimeListArray.count == 0) {
-        [self requestDataWithSort:@"addtime"];
-    } else {
-        [self.tableView reloadData];
-    }
+    [self requestDataWithSort];
 }
 
 - (void)hot
 {
     _requestSort = 1;
-    [self.tableView reloadData];
-    if (self.hotListArray.count == 0) {
-        [self requestDataWithSort:@"hot"];
-    } else {
-        [self.tableView reloadData];
-    }
+    [self requestDataWithSort];
 }
 
 - (void)createTableView
@@ -117,6 +165,8 @@
     _tableView.dataSource = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.translucent = NO;
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshDattWithSort)];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestDataWithSort)];
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ReadDetailListModelCell class]) bundle:nil]  forCellReuseIdentifier:NSStringFromClass([ReadDetailListModel class])];
     
