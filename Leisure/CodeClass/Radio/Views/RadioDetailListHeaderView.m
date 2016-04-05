@@ -20,7 +20,9 @@
     
     self.descLabel.text = model.desc;
     
-    self.countLabel.text = [model.count stringValue];
+    [self.counterButton setTitle:[model.count stringValue]forState:UIControlStateNormal];
+    [self.counterButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    self.counterButton.userInteractionEnabled = NO;
 }
 
 @end

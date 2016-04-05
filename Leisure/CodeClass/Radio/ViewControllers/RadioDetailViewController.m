@@ -70,12 +70,12 @@
     _start = 0;
     [NetWorkrequestManage requestWithType:POST url:RADIODETAILLIST_URL parameters:@{@"radioid" : _radioModel.radioid} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        //NSLog(@"%@", dataDic);
+        NSLog(@"%@", dataDic);
         
         [self.detailListArray removeAllObjects];
         
         NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"radioInfo"][@"coverimg"]];
-        [_headerImageView sd_setImageWithURL:url];
+        [self.headerImageView sd_setImageWithURL:url];
         
         NSArray *listArray = dataDic[@"data"][@"list"];
         for (NSDictionary *modelDic in listArray) {
@@ -97,33 +97,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self createHeaderImageView];
-    
     [self createTableView];
     
     [self requestData];
 }
 
-- (void)createHeaderImageView
-{
-    self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
-    [self.view addSubview:_headerImageView];
-}
-
 - (void)createTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, ScreenHeight - 244) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshData)];
     
-    self.navigationController.navigationBar.translucent = NO;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
+    _tableView.tableHeaderView = _headerImageView;
+    
     
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RadioDetailListModelCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioDetailListModel class])];
     
     [self.view addSubview:_tableView];
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 #pragma mark - Table View Delegate & DataSouce

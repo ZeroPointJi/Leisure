@@ -11,6 +11,8 @@
 
 @interface ProductInfoViewController ()
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @property (nonatomic, strong) NSMutableArray *commentListArray; // 用户评论数据源
 
 @end
@@ -47,12 +49,13 @@
         }
         
         // 获取详情信息, 用webview进行展示
-        NSString *htmlContent = dataDic[@"data"][@"html"];
-        
+        //NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"shareinfo"][@"url"]];
+        NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"postsinfo"][@"shareinfo"][@"url"]];
+        NSString *htmlString = dataDic[@"data"][@"postsinfo"][@"html"];
         
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            [self.webView loadHTMLString:htmlString baseURL:url];
         });
         
     } error:^(NSError *error) {
@@ -62,7 +65,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    //self.webView.scalesPageToFit = YES;
     
     [self requestData];
 }

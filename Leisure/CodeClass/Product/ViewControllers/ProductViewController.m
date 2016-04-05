@@ -140,12 +140,12 @@
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    ProductListModel *model = self.listArray[indexPath.row];
-//    ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
-//    infoVC.contentid = model.contentid;
-//    [self.navigationController pushViewController:infoVC animated:YES];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProductListModel *model = self.listArray[indexPath.row];
+    ProductInfoViewController *infoVC = [[ProductInfoViewController alloc] init];
+    infoVC.contentid = model.contentid;
+    [self.navigationController pushViewController:infoVC animated:YES];
+}
 
 @end

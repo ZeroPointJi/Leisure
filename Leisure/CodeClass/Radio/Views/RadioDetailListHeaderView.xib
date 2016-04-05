@@ -37,34 +37,35 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nw-UF-9LM">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-Xi-z4r">
                     <rect key="frame" x="480" y="30" width="100" height="20"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <state key="normal" title="5333" image="播放量"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="s5q-Xi-z4r" firstAttribute="width" secondItem="YKq-Gw-teN" secondAttribute="width" id="1xa-ZU-VCg"/>
                 <constraint firstItem="wrz-ca-M5A" firstAttribute="leading" secondItem="pQR-ni-sxR" secondAttribute="leading" id="3Bf-R6-mfu"/>
                 <constraint firstItem="YKq-Gw-teN" firstAttribute="leading" secondItem="pQR-ni-sxR" secondAttribute="trailing" constant="10" id="DUD-BL-UcA"/>
                 <constraint firstItem="pQR-ni-sxR" firstAttribute="top" secondItem="eM2-PG-e0l" secondAttribute="top" constant="20" id="Lyy-ws-kGw"/>
                 <constraint firstItem="pQR-ni-sxR" firstAttribute="leading" secondItem="eM2-PG-e0l" secondAttribute="leading" constant="20" id="OFG-ZW-rYK"/>
-                <constraint firstItem="8Nw-UF-9LM" firstAttribute="top" secondItem="YKq-Gw-teN" secondAttribute="top" id="OWg-Tt-XU4"/>
-                <constraint firstItem="8Nw-UF-9LM" firstAttribute="height" secondItem="YKq-Gw-teN" secondAttribute="height" id="WWB-jp-RVa"/>
+                <constraint firstAttribute="trailing" secondItem="s5q-Xi-z4r" secondAttribute="trailing" constant="20" id="TGL-GC-ZOk"/>
+                <constraint firstItem="s5q-Xi-z4r" firstAttribute="centerY" secondItem="YKq-Gw-teN" secondAttribute="centerY" id="VOE-aa-NJm"/>
+                <constraint firstItem="s5q-Xi-z4r" firstAttribute="height" secondItem="YKq-Gw-teN" secondAttribute="height" id="Vzk-BV-CDx"/>
                 <constraint firstAttribute="trailing" secondItem="wrz-ca-M5A" secondAttribute="trailing" constant="20" id="YSF-Vm-lTY"/>
-                <constraint firstAttribute="trailing" secondItem="8Nw-UF-9LM" secondAttribute="trailing" constant="20" id="ae5-eq-jYi"/>
                 <constraint firstItem="YKq-Gw-teN" firstAttribute="centerY" secondItem="pQR-ni-sxR" secondAttribute="centerY" id="ijk-Fu-DK1"/>
                 <constraint firstItem="wrz-ca-M5A" firstAttribute="top" secondItem="pQR-ni-sxR" secondAttribute="bottom" constant="20" id="rya-68-U52"/>
-                <constraint firstItem="8Nw-UF-9LM" firstAttribute="width" secondItem="YKq-Gw-teN" secondAttribute="width" id="yoR-z5-euZ"/>
             </constraints>
             <connections>
-                <outlet property="countLabel" destination="8Nw-UF-9LM" id="ag2-gE-afh"/>
+                <outlet property="counterButton" destination="s5q-Xi-z4r" id="rxX-t1-huE"/>
                 <outlet property="coverImageView" destination="pQR-ni-sxR" id="YT6-jy-5Np"/>
                 <outlet property="descLabel" destination="wrz-ca-M5A" id="8d4-09-Izb"/>
                 <outlet property="titleLabel" destination="YKq-Gw-teN" id="wCE-Rc-aa1"/>
             </connections>
-            <point key="canvasLocation" x="471" y="569"/>
+            <point key="canvasLocation" x="195" y="607"/>
         </view>
     </objects>
+    <resources>
+        <image name="播放量" width="18" height="22"/>
+    </resources>
 </document>

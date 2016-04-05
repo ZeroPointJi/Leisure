@@ -158,7 +158,7 @@
 - (void)createSegmentedControl
 {
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"New", @"Hot"]];
-    _segmentedControl.frame = CGRectMake(0, 0, ScreenWidth, 40);
+    _segmentedControl.frame = CGRectMake(ScreenWidth / 2 - 60, 20, 120, 20);
     _segmentedControl.selectedSegmentIndex = 0;
     [_segmentedControl addTarget:self action:@selector(changeState) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentedControl];
