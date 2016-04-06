@@ -30,7 +30,7 @@
                     <state key="highlighted" image="评论2"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp7-uW-57g">
-                    <rect key="frame" x="50" y="461" width="49" height="20"/>
+                    <rect key="frame" x="10" y="461" width="49" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="i2O-6b-uGf"/>
                     </constraints>
@@ -45,7 +45,7 @@
                     <state key="highlighted" image="喜欢2"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUG-Gb-Dwp">
-                    <rect key="frame" x="275" y="461" width="50" height="20"/>
+                    <rect key="frame" x="315" y="461" width="50" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vUG-Gb-Dwp" secondAttribute="height" multiplier="25:10" id="bYq-yK-RCB"/>
                     </constraints>
@@ -54,7 +54,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2f3-GN-sqb">
-                    <rect key="frame" x="107" y="456" width="160" height="31"/>
+                    <rect key="frame" x="67" y="456" width="240" height="31"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="nX8-TU-WcX"/>
                     </constraints>
@@ -70,10 +70,10 @@
                 <constraint firstItem="2f3-GN-sqb" firstAttribute="leading" secondItem="zp7-uW-57g" secondAttribute="trailing" constant="10" id="DqB-eZ-i7m"/>
                 <constraint firstItem="vUG-Gb-Dwp" firstAttribute="top" secondItem="Q8h-8t-25N" secondAttribute="bottom" constant="25" id="KXB-n4-uxN"/>
                 <constraint firstAttribute="trailing" secondItem="1kF-Ak-jYI" secondAttribute="trailing" id="LRd-Hy-iRz"/>
-                <constraint firstItem="zp7-uW-57g" firstAttribute="leading" secondItem="rGA-kB-eHJ" secondAttribute="leading" constant="50" id="TrJ-49-fsi"/>
+                <constraint firstItem="zp7-uW-57g" firstAttribute="leading" secondItem="rGA-kB-eHJ" secondAttribute="leading" constant="10" id="TrJ-49-fsi"/>
                 <constraint firstItem="2f3-GN-sqb" firstAttribute="centerX" secondItem="rGA-kB-eHJ" secondAttribute="centerX" id="aVF-dJ-sSV"/>
                 <constraint firstAttribute="trailing" secondItem="Q8h-8t-25N" secondAttribute="trailing" constant="100" id="cGC-T6-TQD"/>
-                <constraint firstAttribute="trailing" secondItem="vUG-Gb-Dwp" secondAttribute="trailing" constant="50" id="eIJ-pB-ISO"/>
+                <constraint firstAttribute="trailing" secondItem="vUG-Gb-Dwp" secondAttribute="trailing" constant="10" id="eIJ-pB-ISO"/>
                 <constraint firstItem="vUG-Gb-Dwp" firstAttribute="leading" secondItem="2f3-GN-sqb" secondAttribute="trailing" constant="10" id="hjq-kq-Yay"/>
                 <constraint firstItem="Q8h-8t-25N" firstAttribute="height" secondItem="SEw-Bc-tU7" secondAttribute="height" id="m5f-wK-9j4"/>
                 <constraint firstItem="eNH-4c-dbK" firstAttribute="top" secondItem="rGA-kB-eHJ" secondAttribute="top" constant="45" id="obd-hI-xgD"/>

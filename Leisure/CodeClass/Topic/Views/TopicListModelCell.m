@@ -83,7 +83,7 @@
     [super layoutSubviews];
     
     CGFloat ishotX = 20;
-    CGFloat ishotY = 25;
+    CGFloat ishotY = 20;
     CGFloat ishotWidth = 0;
     if (_ishot) {
         ishotWidth = 30;

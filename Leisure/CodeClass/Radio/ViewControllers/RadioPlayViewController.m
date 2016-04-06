@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
-@property (weak, nonatomic) IBOutlet UIButton *startAndPauseButton; // 开始暂停按钮
+@property (weak, nonatomic) IBOutlet UIButton *startAndPauseButton;
 
 @end
 
@@ -31,13 +31,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self createScrollView];
+    
     [self preview];
     
     [self playMusic];
     
-    [self createScrollView];
-    
     [self createRadioPlayView];
+}
+
+- (void)createScrollView
+{
+    _scrollView.contentSize = CGSizeMake(ScreenWidth * 4, _scrollView.frame.size.height);
+    _scrollView.pagingEnabled = YES;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.delegate = self;
+    
+    [self.view addSubview:_scrollView];
+}
+
+- (void)preview
+{
+    _startAndPauseButton.selected = YES;
+    
+    _pageControl.numberOfPages = 4;
+    _pageControl.currentPage = 0;
+    _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    _pageControl.userInteractionEnabled = NO;
+    
+    [self.view addSubview:_pageControl];
 }
 
 - (void)playMusic
@@ -68,52 +91,31 @@
     CGFloat currentime = _playerManager.totalTime - _playerManager.currentTime - 0.5;
     _radioPlayView.currentimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", (int)currentime / 60, (int)currentime % 60];
     
-    if (self.radioPlayView.programeSlider.value == [_playerManager totalTime] && _playerManager.totalTime != 0) {
+    if (_playerManager.currentTime == [_playerManager totalTime] && _playerManager.totalTime != 0) {
         [self nextMusic:nil];
     }
 }
 
-- (void)preview
-{
-    _startAndPauseButton.selected = YES;
-    
-    _pageControl.numberOfPages = 4;
-    _pageControl.currentPage = 0;
-    _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-    
-    [self.view addSubview:_pageControl];
-}
-
-- (void)createScrollView
-{
-    _scrollView.contentSize = CGSizeMake(ScreenWidth * 4, _scrollView.frame.size.height);
-    _scrollView.pagingEnabled = YES;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.delegate = self;
-    
-    [self.view addSubview:_scrollView];
-}
-
 - (void)createRadioPlayView
 {
-    if (!_radioPlayView.superview) {
-        NSArray *viewArr = [[NSBundle mainBundle] loadNibNamed:@"RadioPlayView" owner:nil options:nil];
-        self.radioPlayView = [viewArr lastObject];
-    }
+    NSArray *viewArr = [[NSBundle mainBundle] loadNibNamed:@"RadioPlayView" owner:nil options:nil];
+    self.radioPlayView = [viewArr lastObject];
     
+    [self createNewView];
+    
+    _radioPlayView.currentimeLabel.text = @"00:00";
+    
+    [self.scrollView addSubview:_radioPlayView];
+}
+
+- (void)createNewView
+{
     self.radioPlayView.programeSlider.value = 0;
     self.radioPlayView.programeSlider.minimumValue = 0;
     self.radioPlayView.programeSlider.maximumValue = [_playerManager totalTime];
-    [self.radioPlayView.programeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventTouchUpInside];
     
     RadioDetailListModel *model = _detailListArray[_selectIndex];
     [_radioPlayView setData:model.playinfoModel];
-    
-    CGFloat currentime = _playerManager.totalTime - _playerManager.currentTime;
-    _radioPlayView.currentimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", (int)(currentime / 60), (int)currentime % 60];
-    
-    [self.scrollView addSubview:_radioPlayView];
 }
 
 // 暂停或继续
@@ -132,7 +134,7 @@
     [_playerManager stop];
     [_playerManager nextMusic];
     _selectIndex = (_selectIndex + 1 == _detailListArray.count) ? 0 : (_selectIndex + 1);
-    [self createRadioPlayView];
+    [self createNewView];
     self.startAndPauseButton.selected = YES;
 }
 
@@ -141,13 +143,8 @@
     [_playerManager stop];
     [_playerManager lastMusic];
     _selectIndex = (_selectIndex == 0) ? (_detailListArray.count - 1) : (_selectIndex - 1);
-    [self createRadioPlayView];
+    [self createNewView];
     self.startAndPauseButton.selected = YES;
-}
-
-- (void)sliderValueChanged:(UISlider *)slider
-{
-    [_playerManager seekToNewTime:slider.value];
 }
 
 #pragma mark - Scroll View Delegate -

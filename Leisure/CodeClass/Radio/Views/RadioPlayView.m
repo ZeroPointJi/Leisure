@@ -7,6 +7,7 @@
 //
 
 #import "RadioPlayView.h"
+#import "PlayerManager.h"
 
 @implementation RadioPlayView
 
@@ -17,6 +18,13 @@
     [self.imageView sd_setImageWithURL:url];
     
     self.titleLabel.text = model.title;
+    
+    [_programeSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)sliderValueChanged:(UISlider *)slider
+{
+    [[PlayerManager defaultManager] seekToNewTime:slider.value];
 }
 
 @end
