@@ -7,6 +7,7 @@
 //
 
 #import "BaseModel.h"
+#import "RadioPlayInfoModel.h"
 
 @interface RadioDetailListModel : BaseModel
 
@@ -14,7 +15,7 @@
 @property (nonatomic, assign) BOOL isnew; // 是否为新
 @property (nonatomic, copy) NSString *musicUrl; // 音乐链接
 @property (nonatomic, copy) NSString *musicVisit; // 音乐播放次数
-@property (nonatomic, strong) NSDictionary *playInfo;
+@property (nonatomic, strong) RadioPlayInfoModel *playinfoModel;
 @property (nonatomic, copy) NSString *tingid;
 @property (nonatomic, copy) NSString *title; // 标题
 

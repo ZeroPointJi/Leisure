@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RadioPlayViewController">
             <connections>
+                <outlet property="pageControl" destination="G2n-CS-DtA" id="6AC-iU-nZF"/>
+                <outlet property="scrollView" destination="CCC-iT-qxz" id="t9t-Yf-ge2"/>
+                <outlet property="startAndPauseButton" destination="e00-cn-LKl" id="vpM-OB-al1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -13,7 +18,77 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XT-Sr-jFP">
+                    <rect key="frame" x="513" y="555" width="30" height="30"/>
+                    <state key="normal" backgroundImage="下一首"/>
+                    <connections>
+                        <action selector="nextMusic:" destination="-1" eventType="touchUpInside" id="wGn-O2-Mue"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e00-cn-LKl">
+                    <rect key="frame" x="282" y="550" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Hd7-cb-Jfj"/>
+                        <constraint firstAttribute="width" constant="40" id="U02-h0-ZDM"/>
+                    </constraints>
+                    <state key="normal" image="播放"/>
+                    <state key="selected" image="暂停"/>
+                    <connections>
+                        <action selector="startAndPause:" destination="-1" eventType="touchUpInside" id="vbj-t5-7pW"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueh-Qq-aaS">
+                    <rect key="frame" x="60" y="555" width="31" height="30"/>
+                    <state key="normal" image="上一首"/>
+                    <connections>
+                        <action selector="preMusic:" destination="-1" eventType="touchUpInside" id="PzJ-bc-PJe"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0AJ-Ux-8ss">
+                    <rect key="frame" x="60" y="535" width="483" height="1"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="PEK-nw-s3G"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CCC-iT-qxz">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="535"/>
+                </scrollView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="G2n-CS-DtA">
+                    <rect key="frame" x="0.0" y="498" width="600" height="37"/>
+                </pageControl>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0AJ-Ux-8ss" firstAttribute="top" secondItem="G2n-CS-DtA" secondAttribute="bottom" id="3RB-pc-zuW"/>
+                <constraint firstAttribute="trailing" secondItem="CCC-iT-qxz" secondAttribute="trailing" id="4hB-5k-6YH"/>
+                <constraint firstItem="CCC-iT-qxz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9mf-Hj-jE7"/>
+                <constraint firstAttribute="trailing" secondItem="G2n-CS-DtA" secondAttribute="trailing" id="Aci-ES-6O8"/>
+                <constraint firstItem="ueh-Qq-aaS" firstAttribute="centerY" secondItem="e00-cn-LKl" secondAttribute="centerY" id="CS7-uU-6aY"/>
+                <constraint firstItem="G2n-CS-DtA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JCs-bR-3Ah"/>
+                <constraint firstItem="3XT-Sr-jFP" firstAttribute="width" secondItem="e00-cn-LKl" secondAttribute="width" multiplier="3/4" id="RNO-lL-uXz"/>
+                <constraint firstItem="3XT-Sr-jFP" firstAttribute="centerY" secondItem="e00-cn-LKl" secondAttribute="centerY" id="Uee-Tq-AjU"/>
+                <constraint firstItem="0AJ-Ux-8ss" firstAttribute="leading" secondItem="ueh-Qq-aaS" secondAttribute="leading" id="Vz7-Uc-Qoz"/>
+                <constraint firstItem="3XT-Sr-jFP" firstAttribute="height" secondItem="e00-cn-LKl" secondAttribute="height" multiplier="3/4" id="YDU-2L-Uob"/>
+                <constraint firstAttribute="bottom" secondItem="e00-cn-LKl" secondAttribute="bottom" constant="10" id="Yhf-f4-gjQ"/>
+                <constraint firstItem="ueh-Qq-aaS" firstAttribute="width" secondItem="e00-cn-LKl" secondAttribute="width" multiplier="0.75" constant="1" id="Z7c-V7-6H3"/>
+                <constraint firstAttribute="trailing" secondItem="3XT-Sr-jFP" secondAttribute="trailing" constant="57" id="d70-gQ-06x"/>
+                <constraint firstItem="ueh-Qq-aaS" firstAttribute="height" secondItem="e00-cn-LKl" secondAttribute="height" multiplier="0.75" id="fHG-s4-dEm"/>
+                <constraint firstItem="0AJ-Ux-8ss" firstAttribute="top" secondItem="CCC-iT-qxz" secondAttribute="bottom" id="lly-3N-RLU"/>
+                <constraint firstItem="CCC-iT-qxz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="paQ-Nv-tLq"/>
+                <constraint firstItem="0AJ-Ux-8ss" firstAttribute="trailing" secondItem="3XT-Sr-jFP" secondAttribute="trailing" id="qyQ-pu-ppN"/>
+                <constraint firstItem="0AJ-Ux-8ss" firstAttribute="centerX" secondItem="e00-cn-LKl" secondAttribute="centerX" id="rqF-uD-Leb"/>
+                <constraint firstItem="ueh-Qq-aaS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="x1F-6Q-XTd"/>
+                <constraint firstAttribute="bottom" secondItem="0AJ-Ux-8ss" secondAttribute="bottom" constant="64" id="xBZ-oV-vZb"/>
+            </constraints>
+            <point key="canvasLocation" x="587" y="330"/>
         </view>
     </objects>
+    <resources>
+        <image name="上一首" width="47" height="47"/>
+        <image name="下一首" width="48" height="47"/>
+        <image name="播放" width="59" height="59"/>
+        <image name="暂停" width="70" height="70"/>
+    </resources>
 </document>

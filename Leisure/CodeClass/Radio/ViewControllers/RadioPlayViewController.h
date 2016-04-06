@@ -10,4 +10,7 @@
 
 @interface RadioPlayViewController : BaseViewController
 
+@property (nonatomic, copy) NSArray *detailListArray;
+@property (nonatomic, assign) NSInteger selectIndex;
+
 @end

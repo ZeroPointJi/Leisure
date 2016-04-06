@@ -6,11 +6,14 @@
 //  Copyright © 2016年 zero. All rights reserved.
 //
 
-#import "RadioDetailViewController.h"
 #import "RadioDetailListModel.h"
+#import "RadioCarouselModel.h"
+
 #import "RadioDetailListModelCell.h"
 #import "RadioDetailListHeaderView.h"
-#import "RadioCarouselModel.h"
+
+#import "RadioPlayViewController.h"
+#import "RadioDetailViewController.h"
 
 #define kLIMIT 10
 
@@ -80,7 +83,9 @@
         NSArray *listArray = dataDic[@"data"][@"list"];
         for (NSDictionary *modelDic in listArray) {
             RadioDetailListModel *model = [[RadioDetailListModel alloc] init];
+            
             [model setValuesForKeysWithDictionary:modelDic];
+            
             [self.detailListArray addObject:model];
         }
         
@@ -155,6 +160,15 @@
     [cell setData:model];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RadioPlayViewController *playVC = [[RadioPlayViewController alloc] init];
+    playVC.selectIndex = indexPath.row;
+    playVC.detailListArray = _detailListArray;
+    
+    [self.navigationController pushViewController:playVC animated:YES];
 }
 
 @end
