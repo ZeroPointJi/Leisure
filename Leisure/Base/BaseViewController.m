@@ -38,11 +38,6 @@
 
 - (void)createBackButton
 {
-    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"返回"]];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"返回"]];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, 50, 44);
     [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
