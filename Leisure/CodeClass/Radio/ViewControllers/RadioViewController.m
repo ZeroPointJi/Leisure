@@ -132,8 +132,9 @@
         
         // 回到主线程操作ui
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self createCycleScorllView];
             [self createTableView];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
         });
         
         
@@ -155,7 +156,7 @@
     
 }
 
-- (void)createCycleScorllView
+- (SDCycleScrollView *)createCycleScorllView
 {
     NSMutableArray *imageURLArr = [NSMutableArray array];
     for (RadioCarouselModel *model in self.carouselArray) {
@@ -163,17 +164,21 @@
     }
     SDCycleScrollView *cycle = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, 180) imageURLStringsGroup:imageURLArr];
     cycle.autoScrollTimeInterval = 5;
-    [self.view addSubview:cycle];
+    
+    return cycle;
 }
 
 - (void)createTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 180, ScreenWidth, ScreenHeight - 244) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     [_tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RadioListModelCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([RadioListModel class])];
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshData)];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestFirstData)];
+    _tableView.tableHeaderView = [self createCycleScorllView];
+    
     self.navigationController.navigationBar.translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     

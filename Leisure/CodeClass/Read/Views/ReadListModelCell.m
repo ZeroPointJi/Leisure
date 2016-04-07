@@ -14,7 +14,7 @@
 - (void)setDataWithModel:(ReadListModel *)model
 {
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", model.name, model.enname];
-    self.nameLabel.textColor = [UIColor darkGrayColor];
+    self.nameLabel.textColor = [UIColor whiteColor];
     
     NSURL *url = [NSURL URLWithString:model.coverimg];
     [self.coverImageView sd_setImageWithURL:url];

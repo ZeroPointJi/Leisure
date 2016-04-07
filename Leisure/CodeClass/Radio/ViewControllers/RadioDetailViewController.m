@@ -92,6 +92,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
         });
         
     } error:^(NSError *error) {
@@ -114,6 +115,7 @@
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(requestRefreshData)];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
     
     self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
     _tableView.tableHeaderView = _headerImageView;
@@ -158,7 +160,7 @@
     BaseTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:NSStringFromClass([RadioDetailListModel class]) forIndexPath:indexPath];
     
     [cell setData:model];
-
+    
     return cell;
 }
 

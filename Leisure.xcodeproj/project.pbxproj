@@ -58,6 +58,8 @@
 		79771EA91CABEDB20077403D /* TopicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79771E881CABEDB20077403D /* TopicViewController.xib */; };
 		79771EAD1CABEE3F0077403D /* NetWorkrequestManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 79771EAC1CABEE3F0077403D /* NetWorkrequestManage.m */; };
 		799214951CB145F1006C153D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 799214941CB145F1006C153D /* Images.xcassets */; };
+		79BE2BD81CB6477300AB3C17 /* RadioPlayListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BE2BD61CB6477300AB3C17 /* RadioPlayListCell.m */; };
+		79BE2BD91CB6477300AB3C17 /* RadioPlayListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79BE2BD71CB6477300AB3C17 /* RadioPlayListCell.xib */; };
 		79C034371CACD40600AA5478 /* ReadDetailListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C034361CACD40600AA5478 /* ReadDetailListModelCell.m */; };
 		79C034391CACD41800AA5478 /* ReadDetailListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79C034381CACD41800AA5478 /* ReadDetailListModelCell.xib */; };
 		79C0343E1CAD0DE000AA5478 /* RadioListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C0343D1CAD0DE000AA5478 /* RadioListModelCell.m */; };
@@ -190,6 +192,9 @@
 		79771EAB1CABEE3F0077403D /* NetWorkrequestManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkrequestManage.h; sourceTree = "<group>"; };
 		79771EAC1CABEE3F0077403D /* NetWorkrequestManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkrequestManage.m; sourceTree = "<group>"; };
 		799214941CB145F1006C153D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		79BE2BD51CB6477300AB3C17 /* RadioPlayListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioPlayListCell.h; sourceTree = "<group>"; };
+		79BE2BD61CB6477300AB3C17 /* RadioPlayListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioPlayListCell.m; sourceTree = "<group>"; };
+		79BE2BD71CB6477300AB3C17 /* RadioPlayListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioPlayListCell.xib; sourceTree = "<group>"; };
 		79C034351CACD40600AA5478 /* ReadDetailListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadDetailListModelCell.h; sourceTree = "<group>"; };
 		79C034361CACD40600AA5478 /* ReadDetailListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadDetailListModelCell.m; sourceTree = "<group>"; };
 		79C034381CACD41800AA5478 /* ReadDetailListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadDetailListModelCell.xib; sourceTree = "<group>"; };
@@ -497,6 +502,9 @@
 				79E08D531CB4FB5B00FDD35B /* RadioPlayView.h */,
 				79E08D541CB4FB5B00FDD35B /* RadioPlayView.m */,
 				79E08D561CB4FBAD00FDD35B /* RadioPlayView.xib */,
+				79BE2BD51CB6477300AB3C17 /* RadioPlayListCell.h */,
+				79BE2BD61CB6477300AB3C17 /* RadioPlayListCell.m */,
+				79BE2BD71CB6477300AB3C17 /* RadioPlayListCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -676,6 +684,7 @@
 				TargetAttributes = {
 					7911F3D91CAA6AFA0084006F = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = A29QK2NWP9;
 					};
 					7911F3F21CAA6AFA0084006F = {
 						CreatedOnToolsVersion = 7.2;
@@ -730,6 +739,7 @@
 				79771EA71CABEDB20077403D /* TopicInfoViewController.xib in Resources */,
 				7911F4651CAA6B8B0084006F /* Main.storyboard in Resources */,
 				79771E971CABEDB20077403D /* RadioPlayViewController.xib in Resources */,
+				79BE2BD91CB6477300AB3C17 /* RadioPlayListCell.xib in Resources */,
 				79E08D571CB4FBAD00FDD35B /* RadioPlayView.xib in Resources */,
 				79C034421CAD19C000AA5478 /* RadioAllListHeaderView.xib in Resources */,
 				79E0F0291CACC128002D451F /* ReadListModelCell.xib in Resources */,
@@ -840,6 +850,7 @@
 				79C0343E1CAD0DE000AA5478 /* RadioListModelCell.m in Sources */,
 				79771E9C1CABEDB20077403D /* ReadListModel.m in Sources */,
 				79771E961CABEDB20077403D /* RadioPlayViewController.m in Sources */,
+				79BE2BD81CB6477300AB3C17 /* RadioPlayListCell.m in Sources */,
 				79771EAD1CABEE3F0077403D /* NetWorkrequestManage.m in Sources */,
 				791195491CAD543900913712 /* ProductListModelCell.m in Sources */,
 				79E08D441CB4DF6400FDD35B /* PlayerManager.m in Sources */,
@@ -985,11 +996,14 @@
 			baseConfigurationReference = B3C6FE2D696563F4A544AE57 /* Pods-Leisure.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Leisure/Tools/PianKe-Prefix.pch";
 				INFOPLIST_FILE = Leisure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = www.zero.com.Leisure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -998,11 +1012,14 @@
 			baseConfigurationReference = 694E9095F59869E92B16FB58 /* Pods-Leisure.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "Leisure/Tools/PianKe-Prefix.pch";
 				INFOPLIST_FILE = Leisure/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = www.zero.com.Leisure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

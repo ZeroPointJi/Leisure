@@ -15,11 +15,16 @@
 @implementation BaseViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     [self createBarButtonTitle];
     
     [super viewDidLoad];
     
     [self createBackButton];
+    
+    self.navigationController.navigationBar.layer.borderWidth = 1;
+    self.navigationController.navigationBar.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 - (void)createBarButtonTitle

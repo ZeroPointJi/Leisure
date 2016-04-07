@@ -10,4 +10,13 @@
 
 @implementation RadioPlayInfoModel
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"userinfo"]) {
+        RadioUserInfoModel *userinfoModel = [[RadioUserInfoModel alloc] init];
+        [userinfoModel setValuesForKeysWithDictionary:value];
+        self.userinfoModel = userinfoModel;
+    }
+}
+
 @end

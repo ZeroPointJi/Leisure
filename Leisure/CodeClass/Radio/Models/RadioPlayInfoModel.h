@@ -21,7 +21,7 @@
 @property (nonatomic, copy) NSString *ting_contentid;
 @property (nonatomic, copy) NSString *tingid;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, strong) NSDictionary *userinfo;
+@property (nonatomic, strong) RadioUserInfoModel *userinfoModel;
 @property (nonatomic, copy) NSString *webview_url;
 
 @end

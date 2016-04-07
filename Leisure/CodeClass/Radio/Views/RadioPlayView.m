@@ -14,7 +14,6 @@
 - (void)setData:(RadioPlayInfoModel *)model
 {
     NSURL *url = [NSURL URLWithString:model.imgUrl];
-    _imageView.layer.cornerRadius = _imageView.frame.size.width / 2;
     [self.imageView sd_setImageWithURL:url];
     
     self.titleLabel.text = model.title;
@@ -25,6 +24,14 @@
 - (void)sliderValueChanged:(UISlider *)slider
 {
     [[PlayerManager defaultManager] seekToNewTime:slider.value];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    _imageView.layer.cornerRadius = _imageView.frame.size.width / 2;
+    _imageView.layer.masksToBounds = YES;
 }
 
 @end
