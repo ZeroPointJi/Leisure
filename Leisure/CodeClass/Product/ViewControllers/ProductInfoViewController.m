@@ -50,12 +50,13 @@
         
         // 获取详情信息, 用webview进行展示
         //NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"shareinfo"][@"url"]];
-        NSURL *url = [NSURL URLWithString:dataDic[@"data"][@"postsinfo"][@"shareinfo"][@"url"]];
+        NSURL *url = [NSURL fileURLWithPath:[NSBundle mainBundle].bundlePath];
         NSString *htmlString = dataDic[@"data"][@"postsinfo"][@"html"];
+        NSString *newString = [NSString importStyleWithHtmlString:htmlString];
         
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.webView loadHTMLString:htmlString baseURL:url];
+            [self.webView loadHTMLString:newString baseURL:url];
         });
         
     } error:^(NSError *error) {

@@ -80,6 +80,8 @@
 		79E0F0241CACBBCD002D451F /* FactoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0F0231CACBBCD002D451F /* FactoryCollectionViewCell.m */; };
 		79E0F0271CACC0FC002D451F /* ReadListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0F0261CACC0FC002D451F /* ReadListModelCell.m */; };
 		79E0F0291CACC128002D451F /* ReadListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E0F0281CACC128002D451F /* ReadListModelCell.xib */; };
+		79FCAEC41CB699D100A26397 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 79FCAEC31CB699D100A26397 /* style.css */; };
+		79FCAEC71CB699D900A26397 /* NSString+Html.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FCAEC61CB699D900A26397 /* NSString+Html.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +229,9 @@
 		79E0F0251CACC0FC002D451F /* ReadListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadListModelCell.h; sourceTree = "<group>"; };
 		79E0F0261CACC0FC002D451F /* ReadListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadListModelCell.m; sourceTree = "<group>"; };
 		79E0F0281CACC128002D451F /* ReadListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadListModelCell.xib; sourceTree = "<group>"; };
+		79FCAEC31CB699D100A26397 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		79FCAEC51CB699D900A26397 /* NSString+Html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Html.h"; sourceTree = "<group>"; };
+		79FCAEC61CB699D900A26397 /* NSString+Html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Html.m"; sourceTree = "<group>"; };
 		B3C6FE2D696563F4A544AE57 /* Pods-Leisure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Leisure.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Leisure/Pods-Leisure.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -307,6 +312,7 @@
 		7911F3DD1CAA6AFA0084006F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				79FCAEC31CB699D100A26397 /* style.css */,
 				799214941CB145F1006C153D /* Images.xcassets */,
 				7911F3EB1CAA6AFA0084006F /* LaunchScreen.storyboard */,
 				7911F3EE1CAA6AFA0084006F /* Info.plist */,
@@ -367,6 +373,8 @@
 			children = (
 				79E08D421CB4DF6400FDD35B /* PlayerManager.h */,
 				79E08D431CB4DF6400FDD35B /* PlayerManager.m */,
+				79FCAEC51CB699D900A26397 /* NSString+Html.h */,
+				79FCAEC61CB699D900A26397 /* NSString+Html.m */,
 				79771EAB1CABEE3F0077403D /* NetWorkrequestManage.h */,
 				79771EAC1CABEE3F0077403D /* NetWorkrequestManage.m */,
 				79771EAA1CABEDEF0077403D /* UrlHeaderDefine.h */,
@@ -744,6 +752,7 @@
 				79C034421CAD19C000AA5478 /* RadioAllListHeaderView.xib in Resources */,
 				79E0F0291CACC128002D451F /* ReadListModelCell.xib in Resources */,
 				79771E9E1CABEDB20077403D /* ReadDetailViewController.xib in Resources */,
+				79FCAEC41CB699D100A26397 /* style.css in Resources */,
 				7911F46A1CAA6D190084006F /* BaseCollectionViewCell.xib in Resources */,
 				79771E951CABEDB20077403D /* RadioDetailViewController.xib in Resources */,
 			);
@@ -824,6 +833,7 @@
 				79771E9F1CABEDB20077403D /* ReadInfoViewController.m in Sources */,
 				79771E8C1CABEDB20077403D /* ProductUserInfoModel.m in Sources */,
 				79771E8B1CABEDB20077403D /* ProductListModel.m in Sources */,
+				79FCAEC71CB699D900A26397 /* NSString+Html.m in Sources */,
 				79771E921CABEDB20077403D /* RadioListModel.m in Sources */,
 				79771E8D1CABEDB20077403D /* ProductInfoViewController.m in Sources */,
 				79C034481CAD258000AA5478 /* RadioDetailListModelCell.m in Sources */,

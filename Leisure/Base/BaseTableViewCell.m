@@ -8,8 +8,6 @@
 
 #import "BaseTableViewCell.h"
 
-static BOOL isDouble;
-
 @implementation BaseTableViewCell
 
 - (void)setData:(BaseModel *)model

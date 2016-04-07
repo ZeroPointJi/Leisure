@@ -17,5 +17,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <MJRefresh.h>
+#import "NSString+Html.h"
 
 #endif /* PianKe_Prefix_pch */
