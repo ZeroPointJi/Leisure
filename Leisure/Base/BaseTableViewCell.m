@@ -27,14 +27,4 @@ static BOOL isDouble;
     // Configure the view for the selected state
 }
 
-- (void)layoutSubviews
-{
-    if (isDouble) {
-        isDouble = NO;
-    } else {
-        isDouble = YES;
-        self.backgroundColor = [UIColor colorWithRed:5 green:5 blue:5 alpha:5];
-    }
-}
-
 @end
