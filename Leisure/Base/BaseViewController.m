@@ -19,8 +19,6 @@
     
     [self createBarButtonTitle];
     
-    [super viewDidLoad];
-    
     [self createBackButton];
     
     self.navigationController.navigationBar.layer.borderWidth = 1;
