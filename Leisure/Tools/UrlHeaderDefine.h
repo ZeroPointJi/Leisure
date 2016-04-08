@@ -27,7 +27,9 @@
 #define RADIODETAILLIST_URL    @"http://api2.pianke.me/ting/radio_detail" // 电台详细列表
 #define RADIODETAILMORE_URL    @"http://api2.pianke.me/ting/radio_detail_list" //上拉电台详情
 
-
+// 注册登录模块
+#define LOGIN_URL @"http://api2.pianke.me/user/login" // 登录
+#define REGISTER_URL @"http://api2.pianke.me/user/reg" // 注册
 
 
 

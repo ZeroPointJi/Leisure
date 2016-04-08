@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -21,9 +22,71 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tOc-An-YTK">
                                 <rect key="frame" x="0.0" y="20" width="250" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="EOT-hY-HzS">
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="131"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="占位图" translatesAutoresizingMaskIntoConstraints="NO" id="mb1-1e-6yd">
+                                            <rect key="frame" x="15" y="20" width="61" height="61"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="mb1-1e-6yd" secondAttribute="height" multiplier="1:1" id="Hyd-zY-ODR"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3jR-Vt-2AP">
+                                            <rect key="frame" x="125" y="101" width="125" height="30"/>
+                                            <state key="normal" image="喜欢2"/>
+                                            <connections>
+                                                <action selector="collect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vjJ-XO-O3S"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHi-Qe-mBi">
+                                            <rect key="frame" x="91" y="33" width="159" height="36"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <state key="normal" title="登录">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="login_cancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nbm-t8-FSW"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Dy-Ey-xGe">
+                                            <rect key="frame" x="0.0" y="101" width="125" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Wvz-h0-vaN"/>
+                                            </constraints>
+                                            <state key="normal" image="下载"/>
+                                            <connections>
+                                                <action selector="download:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pd4-vp-gsk"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="mb1-1e-6yd" firstAttribute="leading" secondItem="EOT-hY-HzS" secondAttribute="leading" constant="15" id="07Z-KJ-1AM"/>
+                                        <constraint firstItem="GHi-Qe-mBi" firstAttribute="leading" secondItem="mb1-1e-6yd" secondAttribute="trailing" constant="15" id="1MQ-BO-RWu"/>
+                                        <constraint firstAttribute="trailing" secondItem="GHi-Qe-mBi" secondAttribute="trailing" id="2yv-1S-qPw"/>
+                                        <constraint firstItem="mb1-1e-6yd" firstAttribute="top" secondItem="EOT-hY-HzS" secondAttribute="top" constant="20" id="7ZB-kx-zJW"/>
+                                        <constraint firstItem="3jR-Vt-2AP" firstAttribute="top" secondItem="0Dy-Ey-xGe" secondAttribute="top" id="9RL-m0-8xQ"/>
+                                        <constraint firstItem="0Dy-Ey-xGe" firstAttribute="top" secondItem="mb1-1e-6yd" secondAttribute="bottom" constant="20" id="MKX-K8-gAq"/>
+                                        <constraint firstItem="0Dy-Ey-xGe" firstAttribute="leading" secondItem="EOT-hY-HzS" secondAttribute="leading" id="RPu-8i-jad"/>
+                                        <constraint firstItem="0Dy-Ey-xGe" firstAttribute="width" secondItem="EOT-hY-HzS" secondAttribute="width" multiplier="1/2" id="aL1-aQ-0rS"/>
+                                        <constraint firstItem="GHi-Qe-mBi" firstAttribute="centerY" secondItem="mb1-1e-6yd" secondAttribute="centerY" id="bRu-IN-oO6"/>
+                                        <constraint firstItem="3jR-Vt-2AP" firstAttribute="width" secondItem="0Dy-Ey-xGe" secondAttribute="width" id="cnv-aX-JrQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="3jR-Vt-2AP" secondAttribute="bottom" id="gkd-8n-y0c"/>
+                                        <constraint firstAttribute="trailing" secondItem="3jR-Vt-2AP" secondAttribute="trailing" id="tus-db-uWS"/>
+                                        <constraint firstAttribute="bottom" secondItem="0Dy-Ey-xGe" secondAttribute="bottom" id="wEK-l6-Rom"/>
+                                        <constraint firstItem="3jR-Vt-2AP" firstAttribute="height" secondItem="0Dy-Ey-xGe" secondAttribute="height" id="yXY-rD-5UV"/>
+                                        <constraint firstItem="3jR-Vt-2AP" firstAttribute="leading" secondItem="0Dy-Ey-xGe" secondAttribute="trailing" id="zJl-z1-tJ9"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="9RL-m0-8xQ"/>
+                                        </mask>
+                                    </variation>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuse" id="DSA-E2-IOj">
-                                        <rect key="frame" x="0.0" y="28" width="250" height="44"/>
+                                        <rect key="frame" x="0.0" y="159" width="250" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DSA-E2-IOj" id="HXk-rX-bKn">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="43"/>
@@ -43,12 +106,21 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="collectButton" destination="3jR-Vt-2AP" id="LAb-TJ-uHw"/>
+                        <outlet property="downloadButton" destination="0Dy-Ey-xGe" id="rW4-Vu-0fS"/>
+                        <outlet property="iconImageView" destination="mb1-1e-6yd" id="tfO-cG-RRE"/>
                         <outlet property="leftTableView" destination="tOc-An-YTK" id="IZL-sg-4OO"/>
+                        <outlet property="login_cancelButton" destination="GHi-Qe-mBi" id="TQx-v1-KLE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="582.5" y="553.5"/>
+            <point key="canvasLocation" x="614.5" y="543.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="下载" width="27" height="23"/>
+        <image name="占位图" width="492" height="326"/>
+        <image name="喜欢2" width="42" height="33"/>
+    </resources>
 </document>

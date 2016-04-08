@@ -5,23 +5,29 @@
 //  Created by zero on 16/3/28.
 //  Copyright © 2016年 zero. All rights reserved.
 //
-
 #import "ViewController.h"
 #import "BaseViewController.h"
 #import "ReadViewController.h"
 #import "RadioViewController.h"
 #import "TopicViewController.h"
 #import "ProductViewController.h"
+#import "LoginViewController.h"
 
 #define kLeftWidth [UIScreen mainScreen].bounds.size.width * 2 / 3
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UINavigationController *naVC;
-@property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (strong, nonatomic) NSMutableArray *rootViewNameArr;
 @property (strong, nonatomic) UIView *rootView;
 @property (nonatomic, assign) BOOL showLeft;
+
+@property (weak, nonatomic) IBOutlet UITableView *leftTableView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UIButton *login_cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *collectButton;
+
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @end
@@ -44,8 +50,8 @@
     [super viewDidLoad];
     
     _showLeft = NO;
-    self.leftTableView.delegate = self;
-    self.leftTableView.dataSource = self;
+    
+    [self createLeftTableView];
     
     [self createViewController:0];
     
@@ -53,6 +59,51 @@
     [self.view addGestureRecognizer:self.tap];
     _tap.enabled = NO;
     self.tap.delegate = self;
+}
+
+// 创建左边栏
+- (void)createLeftTableView
+{
+    self.leftTableView.delegate = self;
+    self.leftTableView.dataSource = self;
+    
+    _downloadButton.layer.borderWidth = 1;
+    _collectButton.layer.borderWidth = 1;
+}
+
+// 登录, 取消登录
+- (IBAction)login_cancel:(UIButton *)sender {
+    if ([[UserInfoManager getUserAuth] isEqualToString:@" "]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:naVC animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"取消登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *actionEnter = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [UserInfoManager cancelUserAuth];
+            self.iconImageView.image = [UIImage imageNamed:@"占位图"];
+            [self.login_cancelButton setTitle:@"登录" forState:UIControlStateNormal];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [alert addAction:actionCancel];
+        [alert addAction:actionEnter];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+// 下载
+- (IBAction)download:(UIButton *)sender {
+    
+}
+
+// 收藏
+- (IBAction)collect:(UIButton *)sender {
+    
 }
 
 // 根据传入的数值创建视图控制器

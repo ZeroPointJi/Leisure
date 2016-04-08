@@ -18,5 +18,6 @@
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <MJRefresh.h>
 #import "NSString+Html.h"
+#import "UserInfoManager.h"
 
 #endif /* PianKe_Prefix_pch */
