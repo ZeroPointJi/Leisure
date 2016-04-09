@@ -74,6 +74,11 @@
 		79D2C7691CB79C4900302F67 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C7671CB79C4900302F67 /* RegistViewController.m */; };
 		79D2C76A1CB79C4900302F67 /* RegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D2C7681CB79C4900302F67 /* RegistViewController.xib */; };
 		79D2C76D1CB7A04200302F67 /* UserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C76C1CB7A04200302F67 /* UserInfoManager.m */; };
+		79D2C7761CB7F31900302F67 /* ReadCommontListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C7741CB7F31900302F67 /* ReadCommontListViewController.m */; };
+		79D2C7771CB7F31900302F67 /* ReadCommontListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D2C7751CB7F31900302F67 /* ReadCommontListViewController.xib */; };
+		79D2C77A1CB7F72300302F67 /* ReadCommontModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C7791CB7F72300302F67 /* ReadCommontModel.m */; };
+		79D2C77D1CB7F7C900302F67 /* ReadCommontModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C77C1CB7F7C900302F67 /* ReadCommontModelCell.m */; };
+		79D2C7821CB7F80A00302F67 /* ReadUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D2C7811CB7F80A00302F67 /* ReadUserInfoModel.m */; };
 		79E08D441CB4DF6400FDD35B /* PlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E08D431CB4DF6400FDD35B /* PlayerManager.m */; };
 		79E08D4A1CB4E78E00FDD35B /* RadioInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E08D491CB4E78E00FDD35B /* RadioInfoModel.m */; };
 		79E08D4D1CB4E90D00FDD35B /* RadioPlayInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E08D4C1CB4E90D00FDD35B /* RadioPlayInfoModel.m */; };
@@ -85,6 +90,7 @@
 		79E0F0241CACBBCD002D451F /* FactoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0F0231CACBBCD002D451F /* FactoryCollectionViewCell.m */; };
 		79E0F0271CACC0FC002D451F /* ReadListModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E0F0261CACC0FC002D451F /* ReadListModelCell.m */; };
 		79E0F0291CACC128002D451F /* ReadListModelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E0F0281CACC128002D451F /* ReadListModelCell.xib */; };
+		79E77C251CB8923400DBBB97 /* KeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E77C241CB8923400DBBB97 /* KeyBoardView.m */; };
 		79FCAEC41CB699D100A26397 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 79FCAEC31CB699D100A26397 /* style.css */; };
 		79FCAEC71CB699D900A26397 /* NSString+Html.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FCAEC61CB699D900A26397 /* NSString+Html.m */; };
 /* End PBXBuildFile section */
@@ -223,6 +229,15 @@
 		79D2C7681CB79C4900302F67 /* RegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistViewController.xib; sourceTree = "<group>"; };
 		79D2C76B1CB7A04200302F67 /* UserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoManager.h; path = ../UserInfoManager.h; sourceTree = "<group>"; };
 		79D2C76C1CB7A04200302F67 /* UserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoManager.m; path = ../UserInfoManager.m; sourceTree = "<group>"; };
+		79D2C7731CB7F31900302F67 /* ReadCommontListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadCommontListViewController.h; sourceTree = "<group>"; };
+		79D2C7741CB7F31900302F67 /* ReadCommontListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadCommontListViewController.m; sourceTree = "<group>"; };
+		79D2C7751CB7F31900302F67 /* ReadCommontListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadCommontListViewController.xib; sourceTree = "<group>"; };
+		79D2C7781CB7F72300302F67 /* ReadCommontModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadCommontModel.h; sourceTree = "<group>"; };
+		79D2C7791CB7F72300302F67 /* ReadCommontModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadCommontModel.m; sourceTree = "<group>"; };
+		79D2C77B1CB7F7C900302F67 /* ReadCommontModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadCommontModelCell.h; sourceTree = "<group>"; };
+		79D2C77C1CB7F7C900302F67 /* ReadCommontModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadCommontModelCell.m; sourceTree = "<group>"; };
+		79D2C7801CB7F80A00302F67 /* ReadUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadUserInfoModel.h; sourceTree = "<group>"; };
+		79D2C7811CB7F80A00302F67 /* ReadUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadUserInfoModel.m; sourceTree = "<group>"; };
 		79E08D421CB4DF6400FDD35B /* PlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerManager.h; sourceTree = "<group>"; };
 		79E08D431CB4DF6400FDD35B /* PlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerManager.m; sourceTree = "<group>"; };
 		79E08D481CB4E78E00FDD35B /* RadioInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioInfoModel.h; sourceTree = "<group>"; };
@@ -242,6 +257,8 @@
 		79E0F0251CACC0FC002D451F /* ReadListModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadListModelCell.h; sourceTree = "<group>"; };
 		79E0F0261CACC0FC002D451F /* ReadListModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadListModelCell.m; sourceTree = "<group>"; };
 		79E0F0281CACC128002D451F /* ReadListModelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadListModelCell.xib; sourceTree = "<group>"; };
+		79E77C231CB8923400DBBB97 /* KeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBoardView.h; sourceTree = "<group>"; };
+		79E77C241CB8923400DBBB97 /* KeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyBoardView.m; sourceTree = "<group>"; };
 		79FCAEC31CB699D100A26397 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		79FCAEC51CB699D900A26397 /* NSString+Html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Html.h"; sourceTree = "<group>"; };
 		79FCAEC61CB699D900A26397 /* NSString+Html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Html.m"; sourceTree = "<group>"; };
@@ -552,6 +569,10 @@
 				79771E6C1CABEDB20077403D /* ReadDetailListModel.m */,
 				79771E691CABEDB20077403D /* ReadCarouselModel.h */,
 				79771E6A1CABEDB20077403D /* ReadCarouselModel.m */,
+				79D2C7801CB7F80A00302F67 /* ReadUserInfoModel.h */,
+				79D2C7811CB7F80A00302F67 /* ReadUserInfoModel.m */,
+				79D2C7781CB7F72300302F67 /* ReadCommontModel.h */,
+				79D2C7791CB7F72300302F67 /* ReadCommontModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -568,6 +589,9 @@
 				79771E731CABEDB20077403D /* ReadInfoViewController.h */,
 				79771E741CABEDB20077403D /* ReadInfoViewController.m */,
 				79771E751CABEDB20077403D /* ReadInfoViewController.xib */,
+				79D2C7731CB7F31900302F67 /* ReadCommontListViewController.h */,
+				79D2C7741CB7F31900302F67 /* ReadCommontListViewController.m */,
+				79D2C7751CB7F31900302F67 /* ReadCommontListViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -581,6 +605,10 @@
 				79C034351CACD40600AA5478 /* ReadDetailListModelCell.h */,
 				79C034361CACD40600AA5478 /* ReadDetailListModelCell.m */,
 				79C034381CACD41800AA5478 /* ReadDetailListModelCell.xib */,
+				79D2C77B1CB7F7C900302F67 /* ReadCommontModelCell.h */,
+				79D2C77C1CB7F7C900302F67 /* ReadCommontModelCell.m */,
+				79E77C231CB8923400DBBB97 /* KeyBoardView.h */,
+				79E77C241CB8923400DBBB97 /* KeyBoardView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -798,6 +826,7 @@
 				79771EA91CABEDB20077403D /* TopicViewController.xib in Resources */,
 				7911954B1CAD545700913712 /* ProductListModelCell.xib in Resources */,
 				79771EA71CABEDB20077403D /* TopicInfoViewController.xib in Resources */,
+				79D2C7771CB7F31900302F67 /* ReadCommontListViewController.xib in Resources */,
 				7911F4651CAA6B8B0084006F /* Main.storyboard in Resources */,
 				79D2C7621CB79C2B00302F67 /* LoginViewController.xib in Resources */,
 				79D2C76A1CB79C4900302F67 /* RegistViewController.xib in Resources */,
@@ -884,9 +913,11 @@
 			files = (
 				79E0F0211CACB919002D451F /* FactoryTableViewCell.m in Sources */,
 				79E0F01D1CACB7EA002D451F /* BaseTableViewCell.m in Sources */,
+				79D2C7761CB7F31900302F67 /* ReadCommontListViewController.m in Sources */,
 				79E08D551CB4FB5B00FDD35B /* RadioPlayView.m in Sources */,
 				79771E9F1CABEDB20077403D /* ReadInfoViewController.m in Sources */,
 				79771E8C1CABEDB20077403D /* ProductUserInfoModel.m in Sources */,
+				79D2C77A1CB7F72300302F67 /* ReadCommontModel.m in Sources */,
 				79771E8B1CABEDB20077403D /* ProductListModel.m in Sources */,
 				79FCAEC71CB699D900A26397 /* NSString+Html.m in Sources */,
 				79771E921CABEDB20077403D /* RadioListModel.m in Sources */,
@@ -911,11 +942,13 @@
 				79E08D4A1CB4E78E00FDD35B /* RadioInfoModel.m in Sources */,
 				7911F44D1CAA6B530084006F /* BaseViewController.m in Sources */,
 				79E0F0241CACBBCD002D451F /* FactoryCollectionViewCell.m in Sources */,
+				79D2C77D1CB7F7C900302F67 /* ReadCommontModelCell.m in Sources */,
 				7911F3E21CAA6AFA0084006F /* AppDelegate.m in Sources */,
 				791195441CAD482100913712 /* TopicListModelCell.m in Sources */,
 				79C0343E1CAD0DE000AA5478 /* RadioListModelCell.m in Sources */,
 				79771E9C1CABEDB20077403D /* ReadListModel.m in Sources */,
 				79771E961CABEDB20077403D /* RadioPlayViewController.m in Sources */,
+				79E77C251CB8923400DBBB97 /* KeyBoardView.m in Sources */,
 				79BE2BD81CB6477300AB3C17 /* RadioPlayListCell.m in Sources */,
 				79771EAD1CABEE3F0077403D /* NetWorkrequestManage.m in Sources */,
 				791195491CAD543900913712 /* ProductListModelCell.m in Sources */,
@@ -929,6 +962,7 @@
 				79771EA41CABEDB20077403D /* TopicListModel.m in Sources */,
 				79771E9A1CABEDB20077403D /* ReadCarouselModel.m in Sources */,
 				79D2C76D1CB7A04200302F67 /* UserInfoManager.m in Sources */,
+				79D2C7821CB7F80A00302F67 /* ReadUserInfoModel.m in Sources */,
 				79D2C7611CB79C2B00302F67 /* LoginViewController.m in Sources */,
 				7911F4631CAA6B530084006F /* ViewController.m in Sources */,
 			);

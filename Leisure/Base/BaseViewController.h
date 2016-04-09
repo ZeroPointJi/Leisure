@@ -11,7 +11,10 @@
 @interface BaseViewController : UIViewController
 
 @property (nonatomic, copy) NSString *barButtonTitle;
+@property (nonatomic, strong) NSMutableArray *registFirstResponseArray;
 
 - (void)createBackButton;
+
+- (void)back;
 
 @end

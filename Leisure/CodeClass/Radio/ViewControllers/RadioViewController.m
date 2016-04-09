@@ -89,9 +89,10 @@
     _start = 0;
     [NetWorkrequestManage requestWithType:POST url:RADIOLIST_URL parameters:@{} finish:^(NSData *data) {
         NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableContainers) error:nil];
-        //NSLog(@"dataDic = %@", dataDic);
         
         [self.allListArray removeAllObjects];
+        [self.carouselArray removeAllObjects];
+        [self.hotListArray removeAllObjects];
         
         // 获取所有电台列表数据
         NSArray *allListArr = dataDic[@"data"][@"alllist"];
@@ -133,8 +134,12 @@
         // 回到主线程操作ui
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createTableView];
-            [self.tableView.mj_footer endRefreshing];
-            [self.tableView.mj_header endRefreshing];
+            //if (allListArr.count != kLIMIT) {
+                //[self.tableView.mj_footer endRefreshingWithNoMoreData];
+            //} else {
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView.mj_header endRefreshing];
+            //}
         });
         
         

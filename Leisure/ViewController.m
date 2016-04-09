@@ -34,6 +34,12 @@
 
 @implementation ViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self isLogin];
+}
+
 - (NSMutableArray *)rootViewNameArr
 {
     if (_rootViewNameArr == nil) {
@@ -59,6 +65,9 @@
     [self.view addGestureRecognizer:self.tap];
     _tap.enabled = NO;
     self.tap.delegate = self;
+    
+    self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.width / 2;
+    self.iconImageView.layer.masksToBounds = YES;
 }
 
 // 创建左边栏
@@ -69,12 +78,15 @@
     
     _downloadButton.layer.borderWidth = 1;
     _collectButton.layer.borderWidth = 1;
+    
+    self.leftTableView.bounces = NO;
 }
 
 // 登录, 取消登录
 - (IBAction)login_cancel:(UIButton *)sender {
     if ([[UserInfoManager getUserAuth] isEqualToString:@" "]) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
+        loginVC.barButtonTitle = @"登录";
         UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
         [self presentViewController:naVC animated:YES completion:nil];
     } else {
@@ -154,6 +166,20 @@
         } completion:^(BOOL finished) {
             _showLeft = YES;
         }];
+    }
+    
+    [self isLogin];
+}
+
+- (void)isLogin
+{
+    if ([[UserInfoManager getUserAuth] isEqualToString:@" "]) {
+        [self.login_cancelButton setTitle:@"登录" forState:UIControlStateNormal];
+        self.iconImageView.image = [UIImage imageNamed:@"占位图"];
+    } else {
+        [self.login_cancelButton setTitle:[UserInfoManager getUserName] forState:UIControlStateNormal];
+        NSURL *url = [NSURL URLWithString:[UserInfoManager getUserIcon]];
+        [self.iconImageView sd_setImageWithURL:url];
     }
 }
 

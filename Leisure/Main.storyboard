@@ -21,7 +21,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tOc-An-YTK">
                                 <rect key="frame" x="0.0" y="20" width="250" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="EOT-hY-HzS">
                                     <rect key="frame" x="0.0" y="0.0" width="250" height="131"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -60,7 +60,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="mb1-1e-6yd" firstAttribute="leading" secondItem="EOT-hY-HzS" secondAttribute="leading" constant="15" id="07Z-KJ-1AM"/>
                                         <constraint firstItem="GHi-Qe-mBi" firstAttribute="leading" secondItem="mb1-1e-6yd" secondAttribute="trailing" constant="15" id="1MQ-BO-RWu"/>
@@ -92,6 +92,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -108,7 +109,7 @@
                     <connections>
                         <outlet property="collectButton" destination="3jR-Vt-2AP" id="LAb-TJ-uHw"/>
                         <outlet property="downloadButton" destination="0Dy-Ey-xGe" id="rW4-Vu-0fS"/>
-                        <outlet property="iconImageView" destination="mb1-1e-6yd" id="tfO-cG-RRE"/>
+                        <outlet property="iconImageView" destination="mb1-1e-6yd" id="wpH-xY-EV3"/>
                         <outlet property="leftTableView" destination="tOc-An-YTK" id="IZL-sg-4OO"/>
                         <outlet property="login_cancelButton" destination="GHi-Qe-mBi" id="TQx-v1-KLE"/>
                     </connections>

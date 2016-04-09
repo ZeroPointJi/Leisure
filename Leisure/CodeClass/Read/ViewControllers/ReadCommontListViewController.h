@@ -1,14 +1,14 @@
 //
-//  ReadInfoViewController.h
+//  ReadCommontListViewController.h
 //  Leisure
 //
-//  Created by zero on 16/3/29.
+//  Created by zero on 16/4/8.
 //  Copyright © 2016年 zero. All rights reserved.
 //
 
 #import "BaseViewController.h"
 
-@interface ReadInfoViewController : BaseViewController
+@interface ReadCommontListViewController : BaseViewController
 
 @property (nonatomic, copy) NSString *contentid;
 

@@ -9,6 +9,7 @@
 #import "ReadDetailViewController.h"
 #import "ReadDetailListModel.h"
 #import "ReadDetailListModelCell.h"
+#import "ReadInfoViewController.h"
 
 #define kLIMIT 10
 
@@ -119,8 +120,12 @@
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
+            if (listArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView.mj_header endRefreshing];
+            }
         });
         
     } error:^(NSError *error) {
@@ -215,6 +220,16 @@
     [cell setData:model];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ReadDetailListModel *model = _requestSort == 0 ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
+    ReadInfoViewController *infoVC = [[ReadInfoViewController alloc] init];
+    infoVC.contentid = model.contentID;
+    infoVC.barButtonTitle = model.title;
+    
+    [self.navigationController pushViewController:infoVC animated:YES];
 }
 
 @end

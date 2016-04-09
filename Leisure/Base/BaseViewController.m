@@ -8,11 +8,29 @@
 
 #import "BaseViewController.h"
 
-@interface BaseViewController ()
+@interface BaseViewController () <UITextFieldDelegate>
+
 
 @end
 
 @implementation BaseViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    for (UITextField *textfield in self.registFirstResponseArray) {
+        textfield.delegate = self;
+    }
+}
+
+- (NSMutableArray *)registFirstResponseArray
+{
+    if (_registFirstResponseArray == nil) {
+        self.registFirstResponseArray = [NSMutableArray array];
+    }
+    
+    return _registFirstResponseArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,6 +41,16 @@
     
     self.navigationController.navigationBar.layer.borderWidth = 1;
     self.navigationController.navigationBar.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    for (UITextField *textfield in self.registFirstResponseArray) {
+        [textfield resignFirstResponder];
+    }
 }
 
 - (void)createBarButtonTitle
@@ -50,6 +78,24 @@
 - (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - TextField Delegate -
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    CGRect frame = textField.frame;
+    
+    NSInteger offset = (frame.origin.y+62)-(self.view.frame.size.height-216.0);
+    
+    if (offset > 0) {
+        self.view.frame = CGRectMake(0, -offset, self.view.frame.size.width, self.view.frame.size.height);
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end

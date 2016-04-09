@@ -131,8 +131,12 @@
         // 回到主线程
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createTableView];
-            [_tableView.mj_header endRefreshing];
-            [_tableView.mj_footer endRefreshing];
+            if (listArr.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                [_tableView.mj_header endRefreshing];
+            }
         });
         
     } error:^(NSError *error) {

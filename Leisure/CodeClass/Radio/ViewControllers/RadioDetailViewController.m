@@ -91,8 +91,12 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            [self.tableView.mj_footer endRefreshing];
-            [self.tableView.mj_header endRefreshing];
+            if (listArray.count != kLIMIT) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView.mj_header endRefreshing];
+            }
         });
         
     } error:^(NSError *error) {

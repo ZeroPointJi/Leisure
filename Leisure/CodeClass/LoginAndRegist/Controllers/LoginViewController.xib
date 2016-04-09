@@ -31,12 +31,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deemo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="bet-yT-Ecx">
-                    <rect key="frame" x="50" y="100" width="500" height="281"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="bet-yT-Ecx" secondAttribute="height" multiplier="1920 : 1080" id="gse-ph-7PS"/>
-                    </constraints>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJI-aW-LRy">
                     <rect key="frame" x="10" y="511" width="580" height="40"/>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,6 +39,12 @@
                         <action selector="login:" destination="-1" eventType="touchUpInside" id="4sm-oi-eMU"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deemo_icon" translatesAutoresizingMaskIntoConstraints="NO" id="bet-yT-Ecx">
+                    <rect key="frame" x="50" y="100" width="500" height="281"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bet-yT-Ecx" secondAttribute="height" multiplier="1920 : 1080" id="gse-ph-7PS"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
