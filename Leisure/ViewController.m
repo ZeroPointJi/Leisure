@@ -70,6 +70,11 @@
     self.iconImageView.layer.masksToBounds = YES;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 // 创建左边栏
 - (void)createLeftTableView
 {

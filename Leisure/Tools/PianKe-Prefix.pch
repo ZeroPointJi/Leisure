@@ -19,5 +19,6 @@
 #import <MJRefresh.h>
 #import "NSString+Html.h"
 #import "UserInfoManager.h"
+#import "FMDB.h"
 
 #endif /* PianKe_Prefix_pch */

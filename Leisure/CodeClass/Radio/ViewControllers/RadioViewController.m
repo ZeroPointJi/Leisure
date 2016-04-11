@@ -156,6 +156,11 @@
     [self requestFirstData];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 - (void)createBackButton
 {
     

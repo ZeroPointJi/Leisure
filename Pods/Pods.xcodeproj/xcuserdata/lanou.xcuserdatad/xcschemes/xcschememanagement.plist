@@ -4,50 +4,40 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>FMDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-Leisure.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>UITableView+FDTemplateLayoutCell_Bell.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0F6A70776529B01AF8B59FD7C89C1628</key>
+		<key>09752F8A25FF8966A49895063E21429A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>38B748854C499A530405EC9474F8B69C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3EFD4F9B5A0E51CD16468B0BB927D232</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7ED41F1172E8D6A0BBE22FBF65DD567C</key>
+		<key>34F7FF6D42DB466A86245F2ED8306114</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,32 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98567CA58580D03AF1828B682CD3E149</key>
+		<key>9014854A89990599D52497285F679AD5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B2961FD6E2BC73F68F84485CC28A238D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C5140BD97539AB23974A9F29CD26DAEE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CBEB38002ACE09F9D54EE7DACDA38856</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E69387E997FF8D231371216EADE1E9C1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EC4B10011A747636252496E6E08E7167</key>
+		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

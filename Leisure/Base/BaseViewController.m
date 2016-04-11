@@ -10,7 +10,6 @@
 
 @interface BaseViewController () <UITextFieldDelegate>
 
-
 @end
 
 @implementation BaseViewController
@@ -44,6 +43,19 @@
     
     self.navigationController.navigationBar.translucent = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
+}
+
+// 当应用程序收到应用警告时会被触发, 而且是工程中所有的控制器对象都会收到.
+// 当收到内存警告时, 要释放可再生的内存数据, 通过方法可将资源重新加载回来.
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    // 在内存警告方法中, 释放已经加载且不在当前Window上显示的根视图
+    // 因为控制器的根视图是一个 lazyloading
+    if ([self isViewLoaded] && ![self.view window]) {
+        self.view = nil;
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

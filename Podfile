@@ -5,4 +5,5 @@ target 'Leisure' do
     pod "SDWebImage"
     pod "MJRefresh"
     pod "SDCycleScrollView"
+    pod "FMDB"
 end

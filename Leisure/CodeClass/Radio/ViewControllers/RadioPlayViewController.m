@@ -49,6 +49,11 @@
     [self updateView];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 // 创建滚动视图
 - (void)createScrollView
 {

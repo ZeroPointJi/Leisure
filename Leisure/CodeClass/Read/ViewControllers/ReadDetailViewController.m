@@ -145,6 +145,11 @@
     [self requestDataWithSort];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 - (void)createNaButton
 {
     

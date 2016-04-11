@@ -48,6 +48,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"评论2"] style:UIBarButtonItemStyleDone target:self action:@selector(pushCommontView)];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 - (void)pushCommontView
 {
     if ([[UserInfoManager getUserAuth] isEqualToString:@" "]) {
