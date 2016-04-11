@@ -10,6 +10,7 @@
 #import "ReadDetailListModel.h"
 #import "ReadDetailListModelCell.h"
 #import "ReadInfoViewController.h"
+#import "CollectDB.h"
 
 #define kLIMIT 10
 
@@ -231,8 +232,16 @@
 {
     ReadDetailListModel *model = _requestSort == 0 ? self.addtimeListArray[indexPath.row] : self.hotListArray[indexPath.row];
     ReadInfoViewController *infoVC = [[ReadInfoViewController alloc] init];
-    infoVC.contentid = model.contentID;
+    infoVC.model = model;
     infoVC.barButtonTitle = model.title;
+    
+    CollectDB *collectDB = [[CollectDB alloc] init];
+    NSArray *array = [collectDB selectAllModel];
+    for (ReadDetailListModel *eModel in array) {
+        if ([model.title isEqualToString:eModel.title]) {
+            infoVC.isCollect = YES;
+        }
+    }
     
     [self.navigationController pushViewController:infoVC animated:YES];
 }

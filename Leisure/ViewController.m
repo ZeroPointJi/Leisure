@@ -12,6 +12,7 @@
 #import "TopicViewController.h"
 #import "ProductViewController.h"
 #import "LoginViewController.h"
+#import "CollectViewController.h"
 
 #define kLeftWidth [UIScreen mainScreen].bounds.size.width * 2 / 3
 
@@ -120,7 +121,17 @@
 
 // 收藏
 - (IBAction)collect:(UIButton *)sender {
-    
+    if ([[UserInfoManager getUserAuth] isEqualToString:@" "]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:naVC animated:YES completion:nil];
+    } else {
+        CollectViewController *collectVC = [[CollectViewController alloc] init];
+        collectVC.barButtonTitle = @"收藏";
+        UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:collectVC];
+        
+        [self presentViewController:naVC animated:YES completion:nil];
+    }
 }
 
 // 根据传入的数值创建视图控制器
