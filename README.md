@@ -1,2 +1,2 @@
 # Leisure
-A radio share App.
+A app who share the radio.
